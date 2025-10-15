@@ -1,13 +1,5 @@
 # Team Contract
 
-**Your team is free to revise this contract as your team wishes; we have scaffolded it with a recommended structure similar to the provided sample on Quercus.**
-
-After you reflect on past teamwork experiences and brainstorm a list of actions required for a positive teamwork experience, answer these questions. 
-
-Once you have all agreed on the contents of the team contract, make a PR to merge your team contract into the main branch of your team's repo on GitHub.
-
-**Please remember to remove any of the initial instruction text when your team finalizes your team contract; it should resemble the provided sample once complete, but with details specific to the expectations and norms agreed to by your entire team.**
-
 ---
 ## Purpose of this Contract
 
@@ -18,13 +10,19 @@ This contract sets out shared expectations and commitments for how our team will
 
 ### Communication
 
-* Which platform will you use for communication outside of class, when required for work on your course project? (Examples: Text message, Discord, WeChat, etc.)
+* We will use for Discord for communication outside of class, when required for work on your course project
 
-* Each teammate agrees to respond to messages in at most how long? 1 day? 2 days? Some other amount of time? 
+* Each teammate agrees to respond to messages in at most 5 hours.
 
-* What things should a teammate notify you about? (Examples: if they think they won't be able to meet a deadline, if they have to miss lecture, etc.)
+* Teammates should notify each other about:
+1) Not being able to meet deadline for their part of work
+2) If there is more job or an issue that might be crucial to the project overall
+2) Not attending tutorials
+3) Preferably, not attending lectures
 
-* Respectful and inclusive behaviour are necessary for smooth and productive communication. What are some respectful and inclusive behaviours you expect when communicating with each other during lectures, labs, or outside of class? (Examples: Actively listening to each team members ideas, giving everyone a chance to meaningfully contribute, etc.)
+* Respectful and inclusive behaviours we expect when communicating with each other during lectures, labs, or outside of class.
+1) Actively listening to each team members ideas
+2) Giving everyone a chance to meaningfully contribute
 
 ---
 
@@ -37,18 +35,28 @@ This contract sets out shared expectations and commitments for how our team will
 
 ## Decision Making
 
-* How will decisions about your team project be made? (Examples: By majority vote, by unanimous vote, etc.)
+* By majority vote (either online/or in person)
+* After the deadline that should be at least 2 days after poll creation, the received votes are counted (even if someone has not voted yet)
 
 ---
 ## Conflict resolution
 
-* How will your team resolve conflicts? (Example: by listening to each other's side of the issue and attempting to reach a compromise. By consulting a TA or instructor as a team, if a resolution has not yet been reached.)
+* By listening to each other's side of the issue and attempting to reach a compromise in a democratic way (majority vote, but accounting for the opinion of minority)
+* By consulting a TA or instructor as a team, if a resolution has not yet been reached.
 
 ---
 
 ## Accountability
 
-* Reliability and accountability are also important aspects of teamwork. What are the responsibilities of each team member? (Example: completing their share of the work in a timely manner, seeking assistance from teammates/TAs/instructors when required, etc.)
+Every team member is accountable for:
+
+* Completing their share of the work in a timely manner.
+* Creating issues for any task they are working on.
+* Reviewing PR's they are assigned to in duration of 3 days.
+* Splitting up their tasks in smaller subtasks, so there is consistent work visible to others coming from their side.
+* At the same time ensuring other people are somewhat familiar with the code and each PR has reasonable amount of changes that can be reviewed
+* Assigning 2 people to review any new PR that they create.
+* Seeking assistance from teammates/TAs/instructors when required.
 
 ---
 
@@ -58,4 +66,4 @@ By signing below, we acknowledge that we have read, discussed, and agreed to the
 
 Team Member Signatures:
 
-(type names here)
+Kyrylo Degtiarenko
