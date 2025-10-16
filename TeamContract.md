@@ -67,3 +67,4 @@ By signing below, we acknowledge that we have read, discussed, and agreed to the
 Team Member Signatures:
 
 Kyrylo Degtiarenko
+Wyatt Wong
