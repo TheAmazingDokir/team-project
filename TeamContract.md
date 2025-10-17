@@ -69,3 +69,4 @@ Team Member Signatures:
 Kyrylo Degtiarenko
 Wyatt Wong
 Milan White
+Fengyuan Chen
