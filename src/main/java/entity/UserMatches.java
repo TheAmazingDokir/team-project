@@ -16,6 +16,10 @@ public class UserMatches {
         this.rejectedIds = new ArrayList<>();
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
     public List<Integer> getMatches() {
         return matchIds;
     }
