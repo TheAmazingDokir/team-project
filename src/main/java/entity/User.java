@@ -5,16 +5,18 @@ package entity;
  */
 public class User {
 
-    private final String name;
-    private final String password;
+    private String name;
+    private String password;
+    private UserProfile profile;
 
     /**
-     * Creates a new user with the given non-empty name and non-empty password.
+     * Creates a new user with the given non-empty name, non-empty password and UserProfile.
      * @param name the username
      * @param password the password
+     * @param profile the UserProfile object for this user
      * @throws IllegalArgumentException if the password or name are empty
      */
-    public User(String name, String password) {
+    public User(String name, String password, UserProfile profile) {
         if ("".equals(name)) {
             throw new IllegalArgumentException("Username cannot be empty");
         }
@@ -23,6 +25,7 @@ public class User {
         }
         this.name = name;
         this.password = password;
+        this.profile = profile;
     }
 
     public String getName() {
@@ -31,6 +34,22 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public UserProfile getProfile(){
+        return this.profile;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setProfile(UserProfile profile){
+        this.profile = profile;
     }
 
 }
