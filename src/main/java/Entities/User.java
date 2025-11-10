@@ -1,11 +1,11 @@
 package Entities;
 
-public class User {
+abstract class User {
     String username;
     String password;
     UserProfile profile;
 
-    public User(String username, String password, UserProfile profile) {
+    protected User(String username, String password, UserProfile profile) {
         this.username = username;
         this.password = password;
         this.profile = profile;
