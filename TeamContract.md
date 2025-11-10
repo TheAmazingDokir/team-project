@@ -10,7 +10,7 @@ This contract sets out shared expectations and commitments for how our team will
 
 ### Communication
 
-* We will use for Discord for communication outside of class, when required for work on your course project
+* We will use for Discord and WhatsApp for communication outside of class, when required for work on your course project
 
 * Each teammate agrees to respond to messages in at most 5 hours.
 
@@ -26,10 +26,15 @@ This contract sets out shared expectations and commitments for how our team will
 
 ---
 
-### [Other Categories of norms and expectations go here]
+### Preparation
 
-* Based on your previous teamwork experiences, what other behaviours do you agree upon as a team?
-    - some examples of possible additional team norms and expectations are included in the sample team contract in case your team needs some help getting ideas for what else you want to include.
+* Each team member commits to reading assigned materials and completing individual readiness work before class.
+
+### Attendance & Participation
+
+* During team activities, every member will contribute ideas and engage in the discussion.
+* If unable to attend tutorial or lecture, a member must notify the team in advance.
+
 
 ---
 
@@ -67,3 +72,8 @@ By signing below, we acknowledge that we have read, discussed, and agreed to the
 Team Member Signatures:
 
 Kyrylo Degtiarenko
+Wyatt Wong
+Milan White
+Eren Filiz
+Fengyuan Chen
+Maher Rahman
