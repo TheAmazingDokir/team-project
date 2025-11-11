@@ -1,6 +1,6 @@
-package Entities;
+package entity;
 
-abstract class UserProfile {
+public abstract class UserProfile {
     Integer userId;
     String email;
     String phoneNumber;
