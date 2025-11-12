@@ -15,4 +15,11 @@ public class JobSeekerProfile extends UserProfile {
     public String getFullProfileAsString(){
         return resumeFull;
     }
+
+    public void setResumeSummary(String resumeSummary) {
+        this.resumeSummary = resumeSummary;
+    }
+    public void setResumeFull(String resumeFull) {
+        this.resumeFull = resumeFull;
+    }
 }

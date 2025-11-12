@@ -20,4 +20,12 @@ public class EmployerProfile extends UserProfile {
     public String getFullProfileAsString(){
         return jobApplicationSummary;
     }
+
+    public void setJobApplicationSummary(String jobApplicationSummary) {
+        this.jobApplicationSummary = jobApplicationSummary;
+    }
+
+    public void setJobApplicationFull(String fullProfile){
+        this.jobApplicationFull = fullProfile;
+    }
 }
