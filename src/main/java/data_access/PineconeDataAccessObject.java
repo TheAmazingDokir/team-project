@@ -1,22 +1,22 @@
 package data_access;
+import entity.EmployerProfile;
+import entity.JobSeekerProfile;
+import entity.UserProfile;
+import entity.ProfileRecommendation;
 import io.pinecone.clients.Index;
 import io.pinecone.clients.Pinecone;
-import io.pinecone.configs.PineconeConfig;
-import io.pinecone.configs.PineconeConnection;
 import io.pinecone.proto.DescribeIndexStatsResponse;
-import io.pinecone.proto.ListResponse;
-import io.pinecone.proto.QueryResponse;
-import io.pinecone.proto.Vector;
-import org.openapitools.db_control.client.model.*;
-import org.openapitools.db_data.client.ApiException;
+import org.openapitools.db_data.client.model.Hit;
 import org.openapitools.db_data.client.model.SearchRecordsResponse;
+import use_case.recommend_profile.RecommendProfileRecommendationDataAccessInterface;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
-public class PineconeDataAccessObject {
+public class PineconeDataAccessObject implements RecommendProfileRecommendationDataAccessInterface {
+    private static final String NAMESPACE = "main";
     private final Index index;
 
     public PineconeDataAccessObject() {
@@ -35,17 +35,48 @@ public class PineconeDataAccessObject {
         return props.getProperty("pinecone.api.key");
     }
 
-    public void upsertRecords(ArrayList<Map<String, String>> records, String namespace) throws org.openapitools.db_data.client.ApiException {
-        index.upsertRecords(namespace, records);
+    public void upsertProfiles(List<UserProfile> profiles) throws org.openapitools.db_data.client.ApiException {
+        ArrayList<Map<String, String>> records = new ArrayList<>();
+        for  (UserProfile profile : profiles) {
+            HashMap<String, String> record = new HashMap<>();
+            record.put("_id", String.valueOf(profile.getUserId()));
+            record.put("text", profile.getSummaryProfileAsString());
+
+            boolean isEmployer = profile instanceof EmployerProfile;
+            if (isEmployer) {
+                record.put("role", "employer");
+            }
+            boolean isJobSeeker = profile instanceof JobSeekerProfile;
+            if (isJobSeeker) {
+                record.put("role", "jobseeker");
+            }
+            records.add(record);
+        }
+
+        index.upsertRecords(NAMESPACE, records);
     }
 
-    public void deleteRecordsByIds(String namespace, List<String> ids) throws org.openapitools.db_data.client.ApiException {
-        index.deleteByIds(ids, namespace);
+    public void deleteProfilesByIds( List<String> ids) throws org.openapitools.db_data.client.ApiException {
+        index.deleteByIds(ids, NAMESPACE);
     }
 
-    public SearchRecordsResponse searchBySimilarity(String query, String namespace) throws ApiException {
-        SearchRecordsResponse recordsResponse = index.searchRecordsByText(query, namespace, null, 10, null, null);
-        return recordsResponse;
+    public ProfileRecommendation searchProfilesBySimilarity(String query, String role, int numberOfRecords) {
+        Map<String, Object> filter = new HashMap<>();
+        filter.put("role", role);
+        try{
+            SearchRecordsResponse recordsResponse = index.searchRecordsByText(query, NAMESPACE, null, numberOfRecords, filter, null);
+            List<Hit> records = recordsResponse.getResult().getHits();
+
+            List<Integer> recommendedProfileIds = new ArrayList<>();
+            for  (Hit record : records) {
+                int profileId = Integer.parseInt(record.getId());
+                recommendedProfileIds.add(profileId);
+            }
+
+            return new ProfileRecommendation(recommendedProfileIds);
+        }catch(Exception e){
+            return null;
+        }
     }
 
 
