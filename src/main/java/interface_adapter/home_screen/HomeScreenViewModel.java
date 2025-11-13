@@ -1,4 +1,4 @@
-package interface_adapter.Homescreen;
+package interface_adapter.home_screen;
 
 import interface_adapter.ViewModel;
 

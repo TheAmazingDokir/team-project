@@ -1,24 +1,28 @@
 package view;
 
-import interface_adapter.Homescreen.*;
-import interface_adapter.login.LoginState;
+import interface_adapter.home_screen.*;
+
+import Entities.*;
 
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+
 public class HomeScreenView extends JPanel implements ActionListener, PropertyChangeListener {
     private final String viewName = "Home Screen";
     private final HomeScreenViewModel homeScreenViewModel;
 
-    private final JLabel nameLabel = new JLabel("Name:");
-    private final JLabel usernameLabel = new JLabel();
+    private final JButton homeButton;
+    private final JButton editButton;
+    private final JButton matchButton;
+    private final JButton logoutButton;
+
+    private final JLabel nameLabel = null;
 
     private final JTextArea homeScreenTextArea = new JTextArea(10, 40);
     private final JScrollPane scrollPane = new JScrollPane(homeScreenTextArea);
@@ -37,6 +41,21 @@ public class HomeScreenView extends JPanel implements ActionListener, PropertyCh
         this.scrollPane.setBounds(new Rectangle(20,30));
         this.scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
+        final JPanel upperbuttonsPanel = new JPanel();
+        upperbuttonsPanel.setLayout(new BoxLayout(upperbuttonsPanel, BoxLayout.X_AXIS));
+        this.homeButton = new JButton("Home");
+        this.editButton = new JButton("Edit");
+        this.matchButton = new JButton("Match");
+        this.logoutButton = new JButton("Logout");
+        upperbuttonsPanel.add(homeButton);
+        upperbuttonsPanel.add(editButton);
+        upperbuttonsPanel.add(matchButton);
+        upperbuttonsPanel.add(logoutButton);
+
+        final JPanel namePanel = new JPanel();
+        namePanel.setLayout(new BoxLayout(namePanel, BoxLayout.X_AXIS));
+        namePanel.add(nameLabel);
+
         final JPanel resumeInfo = new JPanel();
         resumeInfo.setLayout(new BoxLayout(resumeInfo,BoxLayout.Y_AXIS));
         resumeInfo.add(new JLabel("Summary"), this.scrollPane);
@@ -54,9 +73,10 @@ public class HomeScreenView extends JPanel implements ActionListener, PropertyCh
                         if (evt.getSource().equals(likeButton)) {
                             final HomeScreenState currentState = homeScreenViewModel.getState();
 
-                            HomeScreenController.execute(
+                            homeScreenController.execute(
                                     currentState.getCurrentId(),
-                                    currentState.getOtherId(),true);
+                                    currentState.getOtherId(),
+                                    true);
                         }
                     }
                 }
@@ -68,14 +88,16 @@ public class HomeScreenView extends JPanel implements ActionListener, PropertyCh
                         if (evt.getSource().equals(dislikeButton)) {
                             final HomeScreenState currentState = homeScreenViewModel.getState();
 
-                            HomeScreenController.execute(currentState.getCurrentId(),
-                                    currentState.getOtherId(),false);
+                            homeScreenController.execute(
+                                    currentState.getCurrentId(),
+                                    currentState.getOtherId(),
+                                    false);
                         }
                     }
                 }
         );
-
-        this.add();
+        this.add(upperbuttonsPanel);
+        this.add(namePanel);
         this.add(resumeInfo);
         this.add(buttons);
 
@@ -94,15 +116,17 @@ public class HomeScreenView extends JPanel implements ActionListener, PropertyCh
     }
 
     private void setFields(HomeScreenState state) {
-        profile = findObject(state.getOtherId());
-        homeScreenTextArea.setText(profile.summary);
+        // to make the userProfile class public
+        this.nameLabel.setText(state.getOtherProfileSummary());
     }
+
+
 
     public String getViewName() {
         return viewName;
     }
 
-    public void setLoginController(HomeScreenController homeScreenController) {
+    public void setHomeScreenController(HomeScreenController homeScreenController) {
         this.homeScreenController = homeScreenController;
     }
 }
