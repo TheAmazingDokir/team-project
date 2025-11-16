@@ -28,4 +28,9 @@ public class EmployerProfile extends UserProfile {
     public void setJobApplicationFull(String fullProfile){
         this.jobApplicationFull = fullProfile;
     }
+
+    @Override
+    public String getProfileUsername() {
+        return getCompanyName();
+    }
 }

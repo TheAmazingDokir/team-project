@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserMatches {
-    private String username;
     private int userId;
     private ArrayList<Integer> matchIds;
     private ArrayList<Integer> approvedIds;
     private ArrayList<Integer> rejectedIds;
 
-    public UserMatches() {
+    public UserMatches(int userId) {
+        this.userId = userId;
         this.matchIds = new ArrayList<>();
         this.approvedIds = new ArrayList<>();
         this.rejectedIds = new ArrayList<>();

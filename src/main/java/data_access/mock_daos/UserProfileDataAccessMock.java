@@ -5,6 +5,7 @@ import entity.JobSeekerProfile;
 import entity.UserProfile;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import use_case.recommend_profile.RecommendProfileProfileDataAccessInterface;
 
 import java.io.FileReader;
 import java.nio.file.Files;
@@ -13,8 +14,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
-public class UserProfileDataAccessMock {
+public class UserProfileDataAccessMock implements RecommendProfileProfileDataAccessInterface {
     private static final String JOB_SEEKER_PROFILES_FILE = "src/main/java/miscilaneous/mock_data/MockJobSeekerProfiles.json";
     private static final String EMPLOYER_PROFILES_FILE = "src/main/java/miscilaneous/mock_data/MockEmployerProfiles.json";
 
@@ -25,8 +27,12 @@ public class UserProfileDataAccessMock {
         loadProfiles();
     }
 
-    public UserProfile getUserProfile(int profileId){
+    public UserProfile getProfileById(int profileId){
         return userProfiles.get(profileId);
+    }
+
+    public List<UserProfile> getAllUserProfiles(){
+        return userProfiles.values().stream().collect(Collectors.toList());
     }
 
     private void loadProfiles() {

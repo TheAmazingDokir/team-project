@@ -1,5 +1,7 @@
 package Entities;
 
+import entity.UserProfile;
+
 abstract class User {
     String username;
     String password;
