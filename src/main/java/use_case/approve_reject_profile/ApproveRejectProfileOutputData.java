@@ -4,13 +4,13 @@ package use_case.approve_reject_profile;
  * Output data for Approve Reject use case
  */
 public class ApproveRejectProfileOutputData {
-    private final int currentUserId;
+    private int currentId;
 
-    ApproveRejectProfileOutputData(int currentUserId) {
-        this.currentUserId = currentUserId;
+    public ApproveRejectProfileOutputData(int currentId) {
+        this.currentId = currentId;
     }
 
-    public int getCurrentUserId() {
-        return currentUserId;
+    public int getCurrentId() {
+        return currentId;
     }
 }
