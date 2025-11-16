@@ -131,6 +131,8 @@ public class HomeScreenView extends JPanel implements ActionListener, PropertyCh
 
     private void setFields(HomeScreenState state) {
         // to make the userProfile class public
+        nameLabel.setText(state.getOtherProfileName());
+        homeScreenTextArea.setText(state.getOtherProfileSummary());
     }
 
 
