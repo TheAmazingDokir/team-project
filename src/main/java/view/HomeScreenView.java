@@ -22,7 +22,7 @@ public class HomeScreenView extends JPanel implements ActionListener, PropertyCh
     private final JButton matchButton;
     private final JButton logoutButton;
 
-    private final JLabel nameLabel = null;
+    private final JLabel nameLabel = new JLabel("Name");
 
     private final JTextArea homeScreenTextArea = new JTextArea(10, 40);
     private final JScrollPane scrollPane = new JScrollPane(homeScreenTextArea);
@@ -34,11 +34,13 @@ public class HomeScreenView extends JPanel implements ActionListener, PropertyCh
 
     public HomeScreenView(HomeScreenViewModel homeScreenViewModel) {
         this.homeScreenViewModel = homeScreenViewModel;
+        this.homeScreenViewModel.addPropertyChangeListener(this);
 
         this.homeScreenTextArea.setEditable(false);
         this.homeScreenTextArea.setLineWrap(true);
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        this.scrollPane.setBounds(new Rectangle(20,30));
+        this.scrollPane.setBounds(new Rectangle(20,20));
         this.scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         final JPanel upperbuttonsPanel = new JPanel();
@@ -52,20 +54,32 @@ public class HomeScreenView extends JPanel implements ActionListener, PropertyCh
         upperbuttonsPanel.add(matchButton);
         upperbuttonsPanel.add(logoutButton);
 
+
+        nameLabel.setFont(new Font("Arial", Font.BOLD, 22));
+        homeScreenTextArea.setFont(new Font("Arial", Font.PLAIN, 18));
+        homeScreenTextArea.setMargin(new Insets(10, 10, 10, 10));
+        homeScreenTextArea.setLineWrap(true);
+        homeScreenTextArea.setWrapStyleWord(true);
+
         final JPanel namePanel = new JPanel();
         namePanel.setLayout(new BoxLayout(namePanel, BoxLayout.X_AXIS));
         namePanel.add(nameLabel);
 
         final JPanel resumeInfo = new JPanel();
         resumeInfo.setLayout(new BoxLayout(resumeInfo,BoxLayout.Y_AXIS));
-        resumeInfo.add(new JLabel("Summary"), this.scrollPane);
+        JLabel summaryLabel = new JLabel("Summary");
+        summaryLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        summaryLabel.setFont(new Font("Arial", Font.PLAIN, 17));
+        resumeInfo.add(summaryLabel);
+        resumeInfo.add(scrollPane);
+
 
         final JPanel buttons = new JPanel();
         buttons.setLayout(new BoxLayout(buttons, BoxLayout.X_AXIS));
-        this.likeButton = new JButton("Like");
-        this.dislikeButton = new JButton("Dislike");
-        buttons.add(likeButton);
+        this.dislikeButton = new JButton("\uD83D\uDC4E Dislike");
+        this.likeButton = new JButton("Like \uD83D\uDC4D");
         buttons.add(dislikeButton);
+        buttons.add(likeButton);
 
         likeButton.addActionListener(
                 new ActionListener() {
@@ -117,7 +131,6 @@ public class HomeScreenView extends JPanel implements ActionListener, PropertyCh
 
     private void setFields(HomeScreenState state) {
         // to make the userProfile class public
-        this.nameLabel.setText(state.getOtherProfileSummary());
     }
 
 
