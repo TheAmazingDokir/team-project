@@ -1,0 +1,82 @@
+[
+  {
+    "userId": 1,
+    "email": "olivia.hughes@example.com",
+    "phoneNumber": "+1-202-555-0143",
+    "profileUsername": "Olivia Hughes",
+    "resumeSummary": "Marketing specialist with 5 years of experience in digital campaigns and brand growth.",
+    "resumeFull": "Olivia Hughes is a dedicated marketing professional with a strong background in managing cross-platform campaigns. She has led initiatives that improved customer engagement by 30% and contributed to multiple successful product launches. Olivia is skilled in SEO, analytics, and content strategy, with a focus on delivering measurable results."
+  },
+  {
+    "userId": 2,
+    "email": "liam.johnson@example.com",
+    "phoneNumber": "+1-202-555-0178",
+    "profileUsername": "Liam Johnson",
+    "resumeSummary": "Software engineer passionate about scalable backend systems and cloud architecture.",
+    "resumeFull": "Liam Johnson has over 6 years of experience developing enterprise software systems, primarily using Java, Python, and AWS. He has worked on large-scale distributed systems, optimizing backend performance and ensuring high availability. Liam is also experienced in DevOps practices and CI/CD automation."
+  },
+  {
+    "userId": 3,
+    "email": "emma.wilson@example.com",
+    "phoneNumber": "+1-202-555-0125",
+    "profileUsername": "Emma Wilson",
+    "resumeSummary": "UX/UI designer focused on crafting intuitive and accessible digital experiences.",
+    "resumeFull": "Emma Wilson is a creative UX/UI designer with 7 years of experience working on mobile and web interfaces. She has collaborated with cross-functional teams to deliver user-centered designs for e-commerce and fintech applications. Emma is skilled in Figma, Adobe XD, and user research methodologies."
+  },
+  {
+    "userId": 4,
+    "email": "noah.brown@example.com",
+    "phoneNumber": "+1-202-555-0192",
+    "profileUsername": "Noah Brown",
+    "resumeSummary": "Data analyst with strong skills in visualization, machine learning, and data storytelling.",
+    "resumeFull": "Noah Brown specializes in analyzing complex datasets to drive business insights. He has experience with Python, SQL, and Tableau, and has contributed to predictive analytics projects that improved operational efficiency. Noah combines statistical rigor with an ability to communicate findings effectively to stakeholders."
+  },
+  {
+    "userId": 5,
+    "email": "ava.martin@example.com",
+    "phoneNumber": "+1-202-555-0164",
+    "profileUsername": "Ava Martin",
+    "resumeSummary": "Project manager with expertise in agile workflows and cross-functional team leadership.",
+    "resumeFull": "Ava Martin has successfully managed software development and infrastructure projects across multiple industries. With certifications in Scrum and PMP, she excels at coordinating teams, mitigating risks, and delivering projects on time and within budget. Ava is known for her strong communication and organizational skills."
+  },
+  {
+    "userId": 6,
+    "email": "ethan.clark@example.com",
+    "phoneNumber": "+1-202-555-0139",
+    "profileUsername": "Ethan Clark",
+    "resumeSummary": "Cybersecurity engineer experienced in network protection and incident response.",
+    "resumeFull": "Ethan Clark brings over 8 years of cybersecurity experience, specializing in intrusion detection, vulnerability management, and system hardening. He has implemented security frameworks for large organizations and led incident response teams. Ethan holds CISSP and CEH certifications and focuses on proactive threat mitigation."
+  },
+  {
+    "userId": 7,
+    "email": "sophia.davis@example.com",
+    "phoneNumber": "+1-202-555-0181",
+    "profileUsername": "Sophia Davis",
+    "resumeSummary": "Financial analyst with strong quantitative skills and investment modeling expertise.",
+    "resumeFull": "Sophia Davis has 6 years of experience in financial planning and analysis, supporting decision-making for mid-sized corporations. She is proficient in Excel modeling, Power BI, and forecasting. Sophia’s analytical approach and attention to detail have helped organizations improve profitability and strategic planning."
+  },
+  {
+    "userId": 8,
+    "email": "jack.miller@example.com",
+    "phoneNumber": "+1-202-555-0117",
+    "profileUsername": "Jack Miller",
+    "resumeSummary": "Full-stack developer with hands-on experience in modern web and mobile applications.",
+    "resumeFull": "Jack Miller is a software developer skilled in React, Node.js, and TypeScript. He has built scalable applications for startups and contributed to several open-source projects. Jack enjoys designing efficient APIs and writing maintainable, clean code aligned with industry best practices."
+  },
+  {
+    "userId": 9,
+    "email": "isabella.moore@example.com",
+    "phoneNumber": "+1-202-555-0150",
+    "profileUsername": "Isabella Moore",
+    "resumeSummary": "Human resources specialist committed to improving employee engagement and culture.",
+    "resumeFull": "Isabella Moore has extensive experience in talent acquisition, performance management, and employee relations. She has worked with both corporate and nonprofit organizations to develop inclusive workplaces. Isabella is passionate about leadership development and organizational growth."
+  },
+  {
+    "userId": 10,
+    "email": "william.taylor@example.com",
+    "phoneNumber": "+1-202-555-0103",
+    "profileUsername": "William Taylor",
+    "resumeSummary": "Mechanical engineer with a focus on sustainable energy systems and automation.",
+    "resumeFull": "William Taylor is an experienced engineer specializing in renewable energy and industrial design. He has contributed to projects involving wind turbine efficiency and robotics integration. William combines technical proficiency with a strong interest in sustainability and innovation-driven engineering."
+  }
+]

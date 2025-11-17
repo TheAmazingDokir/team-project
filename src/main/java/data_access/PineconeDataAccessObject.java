@@ -27,7 +27,7 @@ public class PineconeDataAccessObject implements RecommendProfileRecommendationD
 
     private String getApiKey(){
         Properties props = new Properties();
-        try (InputStream input = new FileInputStream("config.properties")) {
+        try (InputStream input = new FileInputStream("src/secrets/config.properties")) {
             props.load(input);
         } catch (IOException e) {
             throw new RuntimeException(e);

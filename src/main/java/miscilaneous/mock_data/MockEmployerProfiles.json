@@ -1,0 +1,92 @@
+[
+  {
+    "userId": 11,
+    "email": "hr@techsphere.io",
+    "phoneNumber": "+1-310-555-0142",
+    "profileUsername": "Olivia Hughes",
+    "companyName": "TechSphere Innovations",
+    "jobApplicationSummary": "Seeking a backend engineer experienced in cloud systems and API design.",
+    "jobApplicationFull": "TechSphere Innovations is a software company focused on building scalable SaaS platforms. We are hiring a backend engineer to design and maintain distributed services using Java, Go, and AWS. The ideal candidate should have experience with RESTful APIs, microservices, and CI/CD pipelines."
+  },
+  {
+    "userId": 12,
+    "email": "careers@greenleafmarketing.com",
+    "phoneNumber": "+1-310-555-0179",
+    "profileUsername": "Liam Johnson",
+    "companyName": "GreenLeaf Marketing",
+    "jobApplicationSummary": "Looking for a digital marketing strategist to lead social media campaigns.",
+    "jobApplicationFull": "GreenLeaf Marketing partners with global brands to execute creative marketing campaigns. We are seeking a digital marketing strategist to manage paid media, content initiatives, and social engagement. Candidates should have strong analytical skills and experience with Google Ads and Meta Business Suite."
+  },
+  {
+    "userId": 13,
+    "email": "jobs@finverseanalytics.com",
+    "phoneNumber": "+1-310-555-0126",
+    "profileUsername": "Emma Wilson",
+    "companyName": "Finverse Analytics",
+    "jobApplicationSummary": "Hiring a data scientist to work on financial modeling and predictive systems.",
+    "jobApplicationFull": "Finverse Analytics develops AI-driven financial tools for investment firms. We are looking for a data scientist with proficiency in Python, machine learning, and quantitative analysis. Experience with time series forecasting and cloud environments (AWS/GCP) is a plus."
+  },
+  {
+    "userId": 14,
+    "email": "recruitment@aeroteksystems.com",
+    "phoneNumber": "+1-310-555-0194",
+    "profileUsername": "Noah Brown",
+    "companyName": "AeroTek Systems",
+    "jobApplicationSummary": "Seeking mechanical engineers for aerospace component design and testing.",
+    "jobApplicationFull": "AeroTek Systems specializes in designing advanced aerospace components. We are hiring engineers with CAD and FEA experience to contribute to the next generation of propulsion systems. Candidates should hold a degree in mechanical or aerospace engineering."
+  },
+  {
+    "userId": 15,
+    "email": "jobs@bluehorizonstudios.com",
+    "phoneNumber": "+1-310-555-0168",
+    "profileUsername": "Ava Martin",
+    "companyName": "Blue Horizon Studios",
+    "jobApplicationSummary": "Looking for a creative director to lead brand storytelling and media projects.",
+    "jobApplicationFull": "Blue Horizon Studios is a creative agency delivering multimedia campaigns for entertainment and tech brands. We are hiring a creative director to oversee visual design, brand identity, and video production. The ideal candidate has experience in leadership and cross-media communication."
+  },
+  {
+    "userId": 16,
+    "email": "careers@quantumcyberdefense.com",
+    "phoneNumber": "+1-310-555-0137",
+    "profileUsername": "Ethan Clark",
+    "companyName": "Quantum Cyber Defense",
+    "jobApplicationSummary": "Seeking cybersecurity analysts for threat detection and incident response.",
+    "jobApplicationFull": "Quantum Cyber Defense provides security solutions for enterprise clients. We are looking for analysts skilled in SIEM tools, penetration testing, and digital forensics. Applicants should have experience with network monitoring and security certifications such as CISSP or CEH."
+  },
+  {
+    "userId": 17,
+    "email": "hr@northbridgefinance.com",
+    "phoneNumber": "+1-310-555-0183",
+    "profileUsername": "Sophia Davis",
+    "companyName": "Northbridge Finance",
+    "jobApplicationSummary": "Hiring a financial analyst to support portfolio risk assessment and valuation.",
+    "jobApplicationFull": "Northbridge Finance is an investment management firm specializing in equities and private capital. We are seeking a financial analyst to build financial models, conduct valuations, and prepare client reports. Strong Excel and Bloomberg skills required."
+  },
+  {
+    "userId": 18,
+    "email": "talent@skylineapps.com",
+    "phoneNumber": "+1-310-555-0115",
+    "profileUsername": "Jack Miller",
+    "companyName": "Skyline Apps",
+    "jobApplicationSummary": "Looking for a full-stack developer with strong React and Node.js expertise.",
+    "jobApplicationFull": "Skyline Apps develops custom enterprise applications for clients worldwide. We are seeking a full-stack engineer to join our product team. The role involves developing scalable web applications, implementing new features, and collaborating with UX designers."
+  },
+  {
+    "userId": 19,
+    "email": "careers@brightpathhr.com",
+    "phoneNumber": "+1-310-555-0155",
+    "profileUsername": "Isabella Moore",
+    "companyName": "BrightPath HR Solutions",
+    "jobApplicationSummary": "Seeking an HR generalist to manage employee relations and onboarding.",
+    "jobApplicationFull": "BrightPath HR Solutions provides outsourced HR support for mid-sized organizations. We are looking for an HR generalist to handle recruitment, benefits, and performance management. Strong interpersonal skills and knowledge of employment law are required."
+  },
+  {
+    "userId": 20,
+    "email": "recruit@novaenergytech.com",
+    "phoneNumber": "+1-310-555-0101",
+    "profileUsername": "William Taylor",
+    "companyName": "Nova Energy Technologies",
+    "jobApplicationSummary": "Hiring a renewable energy engineer for sustainable systems design.",
+    "jobApplicationFull": "Nova Energy Technologies is a clean-energy company advancing solar and wind integration. We are seeking an engineer to work on renewable power systems and automation projects. Candidates with experience in MATLAB, control systems, and sustainability practices are preferred."
+  }
+]

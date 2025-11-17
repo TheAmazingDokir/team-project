@@ -28,7 +28,7 @@ public class RecommendProfileInteractor implements RecommendProfileInputBoundary
         int numberOfRecordsToRequest = seenProfileIds.size() + 1;
 
         String query = userProfile.getSummaryProfileAsString();
-        String role = userProfile instanceof EmployerProfile? "employer" : "jobseeker";
+        String role = userProfile instanceof EmployerProfile? "jobseeker" : "employer";
         ProfileRecommendation profileRecommendations = recomendationDataAccess.searchProfilesBySimilarity(query, role, numberOfRecordsToRequest);
 
         int recommendedId = profileRecommendations.getLastRecommendedProfileId();

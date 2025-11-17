@@ -1,14 +1,19 @@
 package interface_adapter.home_screen;
 
 
+import use_case.approve_reject_profile.ApproveRejectProfileInputBoundary;
+import use_case.approve_reject_profile.ApproveRejectProfileInputData;
+import use_case.recommend_profile.RecommendProfileInputData;
+import use_case.recommend_profile.RecommendProfileInteractor;
+
 public class HomeScreenController {
 
     private final ApproveRejectProfileInputBoundary approveRejectProfileUseCaseInteractor;
-    private final RecomendatiomProfileUseCaseInteractor recomendatiomProfileUseCaseInteractor;
+    private final RecommendProfileInteractor recomendatiomProfileUseCaseInteractor;
 
-    public HomeScreenController(ApproveRejectProfileInputBoundary approveRejectProfileUseCaseInteractor) {
+    public HomeScreenController(ApproveRejectProfileInputBoundary approveRejectProfileUseCaseInteractor, RecommendProfileInteractor recomendatiomProfileUseCaseInteractor) {
         this.approveRejectProfileUseCaseInteractor = approveRejectProfileUseCaseInteractor;
-        this.recomendatiomProfileUseCaseInteractor = new RecomendatiomProfileUseCaseInteractor();
+        this.recomendatiomProfileUseCaseInteractor = recomendatiomProfileUseCaseInteractor;
     }
 
 
@@ -22,12 +27,12 @@ public class HomeScreenController {
         final ApproveRejectProfileInputData approveRejectProfileInputData =
                 new ApproveRejectProfileInputData(currentId, otherId, isApprove);
 
-        final RecomendatiomProfileInputData recomendatiomProfileInputData =
-                new RecomendatiomProfileInputData(currentId);
+        final RecommendProfileInputData recomendatiomProfileInputData =
+                new RecommendProfileInputData(currentId);
 
-        approveRejectProfileUseCaseInteractor.execute(approveRejectProfileInputDataInputData);
+        approveRejectProfileUseCaseInteractor.execute(approveRejectProfileInputData);
 
-        recomendatiomProfileUseCaseInteractor.execute(recomendatiomProfileInputDataInputData);
+        recomendatiomProfileUseCaseInteractor.execute(recomendatiomProfileInputData);
 
     }
 }
