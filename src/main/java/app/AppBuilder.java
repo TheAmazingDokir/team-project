@@ -3,6 +3,8 @@ package app;
 import data_access.FileUserDataAccessObject;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.create_profile.ChangeProfileController;
+import interface_adapter.create_profile.ChangeProfileViewModel;
 import interface_adapter.logged_in.ChangePasswordController;
 import interface_adapter.logged_in.ChangePasswordPresenter;
 import interface_adapter.logged_in.LoggedInViewModel;
@@ -17,6 +19,8 @@ import interface_adapter.signup.SignupViewModel;
 import use_case.change_password.ChangePasswordInputBoundary;
 import use_case.change_password.ChangePasswordInteractor;
 import use_case.change_password.ChangePasswordOutputBoundary;
+import use_case.change_profile_info.ChangeProfileInputBoundary;
+import use_case.change_profile_info.ChangeProfileInteractor;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
@@ -26,10 +30,7 @@ import use_case.logout.LogoutOutputBoundary;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
-import view.LoggedInView;
-import view.LoginView;
-import view.SignupView;
-import view.ViewManager;
+import view.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -57,6 +58,10 @@ public class AppBuilder {
     private LoggedInView loggedInView;
     private LoginView loginView;
 
+    private ChangeProfileViewModel changeProfileViewModel;
+    private ChangeProfileView changeProfileView;
+    private ChangeProfileController changeProfileController;
+
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
     }
@@ -79,6 +84,15 @@ public class AppBuilder {
         loggedInViewModel = new LoggedInViewModel();
         loggedInView = new LoggedInView(loggedInViewModel);
         cardPanel.add(loggedInView, loggedInView.getViewName());
+        return this;
+    }
+
+    public AppBuilder addChangeProfileView() {
+        changeProfileViewModel = new ChangeProfileViewModel();
+        changeProfileController = new ChangeProfileController(new ChangeProfileInteractor());
+        changeProfileView = new ChangeProfileView(changeProfileViewModel);
+        changeProfileView.setChangeProfileController(changeProfileController);
+        cardPanel.add(changeProfileView, changeProfileView.getViewName());
         return this;
     }
 
@@ -138,7 +152,8 @@ public class AppBuilder {
 
         application.add(cardPanel);
 
-        viewManagerModel.setState(signupView.getViewName());
+//        viewManagerModel.setState(signupView.getViewName());
+        viewManagerModel.setState("change profile");
         viewManagerModel.firePropertyChange();
 
         return application;
