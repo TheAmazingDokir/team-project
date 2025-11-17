@@ -11,12 +11,8 @@ public class ChangeProfileController {
         this.changeProfileInteractor = changeProfileInteractor;
     }
 
-
     public void execute(String email, String phoneNumber, String summary, String profile, Boolean isEmployer) {
         final ChangeProfileInputData changeProfileInputData = new ChangeProfileInputData(email, phoneNumber, summary, profile, isEmployer);
-
         changeProfileInteractor.execute(changeProfileInputData);
     }
-
-
 }
