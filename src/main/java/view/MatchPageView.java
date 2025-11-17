@@ -1,8 +1,5 @@
 package view;
 
-import entity.UserProfile;
-import interface_adapter.home_screen.HomeScreenController;
-import interface_adapter.home_screen.HomeScreenState;
 import interface_adapter.match_page.*;
 
 import Entities.*;
@@ -31,15 +28,14 @@ public class MatchPageView extends JPanel implements ActionListener, PropertyCha
     private final JLabel phoneLabel= new JLabel("Phone:");
     private final JLabel userPhoneLabel;
 
-    private MatchPageController matchPageController = null;
 
-    private final JScrollPane matchUserScrollPane = new JScrollPane();
-
-    private final JTextArea resumeTextArea = new JTextArea(10, 20);
+    private final JTextArea resumeTextArea = new JTextArea(10, 40);
     private final JScrollPane resumeScrollPane = new JScrollPane(resumeTextArea);
 
 
     private final JButton refreshButton = new JButton("Refresh");
+
+    private MatchPageController matchPageController = null;
 
     public MatchPageView(MatchPageViewModel matchPageViewModel) {
         this.matchPageViewModel = matchPageViewModel;
@@ -56,6 +52,8 @@ public class MatchPageView extends JPanel implements ActionListener, PropertyCha
         upperbuttonsPanel.add(editButton);
         upperbuttonsPanel.add(matchButton);
         upperbuttonsPanel.add(logoutButton);
+
+        final JScrollPane matchUserScrollPane = new JScrollPane();
 
 
         final JPanel resumePanel = new JPanel();
@@ -110,50 +108,6 @@ public class MatchPageView extends JPanel implements ActionListener, PropertyCha
         this.add(this.refreshButton);
 
 
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        System.out.println("Click " + e.getActionCommand());
-    }
-
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        final MatchPageState state = (MatchPageState) evt.getNewValue();
-        setFields(state);
-    }
-
-    private void setFields(MatchPageState state) {
-        matchUserScrollPane.removeAll();
-        // to make the userProfile class public
-        for (int i = 0; i < state.getUserMatches().size(); i++) {
-            JButton userButton = new JButton(state.getUserMatchesName().get(i));
-            Integer userId = state.getUserMatches().get(i).getUserId();
-            userButton.addActionListener(
-                    new ActionListener(){
-                        public void actionPerformed(ActionEvent evt) {
-                            if (evt.getSource().equals(userButton)) {
-                                matchPageController.execute(userId);
-                            }
-                        }
-                    }
-            );
-            matchUserScrollPane.add(userButton);
-        }
-        userNameLabel.setText(state.getName());
-        userEmailLabel.setText(state.getEmail());
-        userPhoneLabel.setText(state.getPhone());
-        resumeTextArea.setText(state.getResume());
-    }
-
-
-
-    public String getViewName() {
-        return viewName;
-    }
-
-    public void setMatchPageController(MatchPageController matchPageController) {
-        this.matchPageController = matchPageController;
     }
 
 }
