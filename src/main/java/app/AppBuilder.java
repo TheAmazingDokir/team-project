@@ -153,7 +153,7 @@ public class AppBuilder {
         application.add(cardPanel);
 
 //        viewManagerModel.setState(signupView.getViewName());
-        viewManagerModel.setState("change profile");
+        viewManagerModel.setState(signupView.getViewName());
         viewManagerModel.firePropertyChange();
 
         return application;
