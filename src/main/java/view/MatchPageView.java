@@ -1,5 +1,6 @@
 package view;
 
+import entity.UserProfile;
 import interface_adapter.home_screen.HomeScreenController;
 import interface_adapter.home_screen.HomeScreenState;
 import interface_adapter.match_page.*;
@@ -30,7 +31,7 @@ public class MatchPageView extends JPanel implements ActionListener, PropertyCha
     private final JLabel phoneLabel= new JLabel("Phone:");
     private final JLabel userPhoneLabel;
 
-    private final MatchPageController matchPageController = null;
+    private MatchPageController matchPageController = null;
 
     private final JScrollPane matchUserScrollPane = new JScrollPane();
 
@@ -123,22 +124,25 @@ public class MatchPageView extends JPanel implements ActionListener, PropertyCha
     }
 
     private void setFields(MatchPageState state) {
+        matchUserScrollPane.removeAll();
         // to make the userProfile class public
         for (int i = 0; i < state.getUserMatches().size(); i++) {
             JButton userButton = new JButton(state.getUserMatchesName().get(i));
             Integer userId = state.getUserMatches().get(i).getUserId();
             userButton.addActionListener(
-                    new ActionListener() {
+                    new ActionListener(){
                         public void actionPerformed(ActionEvent evt) {
                             if (evt.getSource().equals(userButton)) {
-                                MatchPageController.execute(
-                                        userId);
+                                matchPageController.execute(userId);
                             }
                         }
                     }
             );
             matchUserScrollPane.add(userButton);
         }
+        userNameLabel.setText(state.getName());
+        userEmailLabel.setText(state.getEmail());
+        userPhoneLabel.setText(state.getPhone());
         resumeTextArea.setText(state.getResume());
     }
 
