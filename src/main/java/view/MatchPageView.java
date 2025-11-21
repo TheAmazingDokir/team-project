@@ -30,14 +30,15 @@ public class MatchPageView extends JPanel implements ActionListener, PropertyCha
     private final JLabel phoneLabel= new JLabel("Phone:");
     private final JLabel userPhoneLabel;
 
+    private final MatchPageController matchPageController = null;
+
+    private final JScrollPane matchUserScrollPane = new JScrollPane();
 
     private final JTextArea resumeTextArea = new JTextArea(10, 40);
     private final JScrollPane resumeScrollPane = new JScrollPane(resumeTextArea);
 
 
     private final JButton refreshButton = new JButton("Refresh");
-
-    private MatchPageController matchPageController = null;
 
     public MatchPageView(MatchPageViewModel matchPageViewModel) {
         this.matchPageViewModel = matchPageViewModel;
@@ -54,8 +55,6 @@ public class MatchPageView extends JPanel implements ActionListener, PropertyCha
         upperbuttonsPanel.add(editButton);
         upperbuttonsPanel.add(matchButton);
         upperbuttonsPanel.add(logoutButton);
-
-        final JScrollPane matchUserScrollPane = new JScrollPane();
 
 
         final JPanel resumePanel = new JPanel();
@@ -125,8 +124,22 @@ public class MatchPageView extends JPanel implements ActionListener, PropertyCha
 
     private void setFields(MatchPageState state) {
         // to make the userProfile class public
-        nameLabel.setText(state.getOtherProfileName());
-        resumeTextArea.setText(state.getOtherProfileSummary());
+        for (int i = 0; i < state.getUserMatches().size(); i++) {
+            JButton userButton = new JButton(state.getUserMatchesName().get(i));
+            Integer userId = state.getUserMatches().get(i).getUserId();
+            userButton.addActionListener(
+                    new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
+                            if (evt.getSource().equals(userButton)) {
+                                MatchPageController.execute(
+                                        userId);
+                            }
+                        }
+                    }
+            );
+            matchUserScrollPane.add(userButton);
+        }
+        resumeTextArea.setText(state.getResume());
     }
 
 
