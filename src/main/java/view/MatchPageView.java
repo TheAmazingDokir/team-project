@@ -1,5 +1,7 @@
 package view;
 
+import interface_adapter.home_screen.HomeScreenController;
+import interface_adapter.home_screen.HomeScreenState;
 import interface_adapter.match_page.*;
 
 import Entities.*;
@@ -108,6 +110,33 @@ public class MatchPageView extends JPanel implements ActionListener, PropertyCha
         this.add(this.refreshButton);
 
 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        System.out.println("Click " + e.getActionCommand());
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        final MatchPageState state = (MatchPageState) evt.getNewValue();
+        setFields(state);
+    }
+
+    private void setFields(MatchPageState state) {
+        // to make the userProfile class public
+        nameLabel.setText(state.getOtherProfileName());
+        resumeTextArea.setText(state.getOtherProfileSummary());
+    }
+
+
+
+    public String getViewName() {
+        return viewName;
+    }
+
+    public void setMatchPageController(MatchPageController matchPageController) {
+        this.matchPageController = matchPageController;
     }
 
 }
