@@ -14,7 +14,7 @@ public class UpdateMatchesInteractor implements IUpdateMatchesInputBoundary {
     MongoDBUserMatchesDataAccessObject dao = new MongoDBUserMatchesDataAccessObject();
 
     /**
-     * If both users have already approved each other, then add them to each others' matches atrtribute
+     * If both users have already approved each other, then add them to each others' matches attribute
      * @param user1Id the first user in the match
      * @param user2Id the second user in the match
      */
