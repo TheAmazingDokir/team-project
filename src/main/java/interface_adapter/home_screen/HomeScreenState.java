@@ -4,6 +4,7 @@ public class HomeScreenState {
     private Integer currentId;
     private boolean isApprove = false;
     private Integer otherId;
+    private String otherProfileName;
     private String otherProfileSummary;
 
     public Integer getCurrentId() {
@@ -16,6 +17,10 @@ public class HomeScreenState {
 
     public Integer getOtherId() {
         return otherId;
+    }
+
+    public String getOtherProfileName() {
+        return otherProfileName;
     }
 
     public String getOtherProfileSummary() {
@@ -36,6 +41,10 @@ public class HomeScreenState {
 
     public void setOtherProfileSummary(String otherProfileSummary) {
         this.otherProfileSummary = otherProfileSummary;
+    }
+
+    public void setOtherProfileName(String otherProfileName) {
+        this.otherProfileName = otherProfileName;
     }
 
 

@@ -5,6 +5,9 @@ package use_case.approve_reject_profile;
  */
 public class ApproveRejectProfileInteractor implements ApproveRejectProfileInputBoundary {
     private ApproveRejectProfileMatchesDataAccessInterface profileMatchesDataAccessInterface;
+    public ApproveRejectProfileInteractor(ApproveRejectProfileMatchesDataAccessInterface profileMatchesDataAccessInterface) {
+        this.profileMatchesDataAccessInterface = profileMatchesDataAccessInterface;
+    }
     @Override
     public void execute(ApproveRejectProfileInputData approveRejectProfileInputData) {
         int currentId = approveRejectProfileInputData.getCurrentProfileId();
