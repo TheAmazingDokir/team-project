@@ -23,10 +23,6 @@ public class HomeScreenPresenter implements ApproveRejectProfileOutputBoundary, 
         final HomeScreenState homeScreenState = homeScreenViewModel.getState();
         homeScreenState.setCurrentId(response.getCurrentId());
         this.homeScreenViewModel.firePropertyChange();
-
-
-//        this.viewManagerModel.setState(homeScreenViewModel.getViewName());
-//        this.viewManagerModel.firePropertyChange();
     }
 
     @Override
@@ -37,9 +33,6 @@ public class HomeScreenPresenter implements ApproveRejectProfileOutputBoundary, 
         homeScreenState.setOtherProfileName(response.getRecommendedProfile().getProfileUsername());
         homeScreenState.setOtherProfileSummary(response.getRecommendedProfile().getSummaryProfileAsString());
         this.homeScreenViewModel.firePropertyChange();
-
-//        this.viewManagerModel.setState(homeScreenViewModel.getViewName());
-//        this.viewManagerModel.firePropertyChange();
     }
 
 }
