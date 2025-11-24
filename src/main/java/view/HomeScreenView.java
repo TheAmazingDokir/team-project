@@ -2,7 +2,7 @@ package view;
 
 import interface_adapter.home_screen.*;
 
-import Entities.*;
+import entity.*;
 
 
 import javax.swing.*;
