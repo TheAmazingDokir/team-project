@@ -22,32 +22,52 @@ public class ChangeProfileInteractor implements ChangeProfileInputBoundry{
         final String phoneNumber = changeProfileInputData.getPhoneNumber();
         final Integer profileID = changeProfileInputData.getProfileID();
         final String profileUsername = changeProfileInputData.getProfileUsername();
+        final boolean isEmployer = changeProfileInputData.getIsEmployer();
+        final String summary = changeProfileInputData.getSummary();
+        final String profile = changeProfileInputData.getProfile();
+        final String companyName = "Random Company";
 
-        final String resumeSummary = changeProfileInputData.getResumeSummary();
-        final String resumeFull = changeProfileInputData.getResumeFull();
-
-        final String companyName = changeProfileInputData.getCompanyName();
-        final String jobApplicationSummary = changeProfileInputData.getJobApplicationSummary();
-        final String jobApplicationFull = changeProfileInputData.getJobApplicationFull();
 
         if (!changeProfileDataAccessObject.CheckProfileExists(profileID)){
-            changeProfileOutputBoundry.prepareFailView("Profile does not exist");
+            if (!isEmployer){
+                JobSeekerProfile alteredProfile = new JobSeekerProfile(profileID,email,phoneNumber,profileUsername);
+                alteredProfile.setResumeSummary(summary);
+                alteredProfile.setResumeFull(profile);
+
+                changeProfileDataAccessObject.UploadProfileData(alteredProfile);
+                changeProfileOutputBoundry.prepareSuccessView(new ChangeProfileOutputData(profileID));
+            }
+            if (isEmployer){
+                EmployerProfile alteredProfile = new EmployerProfile(profileID,email,phoneNumber,profileUsername);
+                alteredProfile.setJobApplicationSummary(summary);
+                alteredProfile.setJobApplicationFull(profile);
+                alteredProfile.setCompanyName(companyName);
+
+                changeProfileDataAccessObject.UploadProfileData(alteredProfile);
+                changeProfileOutputBoundry.prepareSuccessView(new ChangeProfileOutputData(profileID));
+            }
         }
         else {
-            if (changeProfileInputData.isJobSeeker()){
+            if (!isEmployer){
                 JobSeekerProfile alteredProfile = new JobSeekerProfile(profileID,email,phoneNumber,profileUsername);
-                alteredProfile.setResumeSummary(resumeSummary);
-                alteredProfile.setResumeFull(resumeFull);
+                alteredProfile.setResumeSummary(summary);
+                alteredProfile.setResumeFull(profile);
 
                 changeProfileDataAccessObject.ChangeProfileData(alteredProfile);
+                changeProfileOutputBoundry.prepareSuccessView(new ChangeProfileOutputData(profileID));
             }
-            if (changeProfileInputData.isEmployer()){
+            if (isEmployer){
                 EmployerProfile alteredProfile = new EmployerProfile(profileID,email,phoneNumber,profileUsername);
-                alteredProfile.setJobApplicationSummary(jobApplicationSummary);
-                alteredProfile.setJobApplicationFull(jobApplicationFull);
+                alteredProfile.setJobApplicationSummary(summary);
+                alteredProfile.setJobApplicationFull(profile);
                 alteredProfile.setCompanyName(companyName);
 
                 changeProfileDataAccessObject.ChangeProfileData(alteredProfile);
+                changeProfileOutputBoundry.prepareSuccessView(new ChangeProfileOutputData(profileID));
+            }
+
+            else{
+                changeProfileOutputBoundry.prepareFailView("Error: Database Update Unsuccessful");
             }
         }
     }

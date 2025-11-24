@@ -7,62 +7,35 @@ public class ChangeProfileInputData {
 
     private final String email;
     private final String phoneNumber;
-    private final Integer profileID;
+    private final String summary;
+    private final String profile;
+    private final Boolean isEmployer;
     private final String profileUsername;
+    private final Integer profileID;
 
-    private final boolean isEmployer;
-    private final boolean isJobSeeker;
 
-    private final String resumeSummary;
-    private final String resumeFull;
-
-    private final String companyName;
-    private final String jobApplicationSummary;
-    private final String jobApplicationFull;
-
-    public ChangeProfileInputData(String email, String phoneNumber, Integer profileID,
-                                  String profileUsername, boolean isEmployer, boolean isJobSeeker,
-                                  String resumeSummary, String resumeFull, String companyName,
-                                  String jobApplicationSummary, String jobApplicationFull) {
+    public ChangeProfileInputData(String email,  String phoneNumber, String summary, String profile,
+                                  Boolean isEmployer, String profileUsername, Integer profileID ) {
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.profileID = profileID;
-        this.profileUsername = profileUsername;
+        this.summary = summary;
+        this.profile = profile;
         this.isEmployer = isEmployer;
-        this.isJobSeeker = isJobSeeker;
-        this.resumeSummary = resumeSummary;
-        this.resumeFull = resumeFull;
-        this.companyName = companyName;
-        this.jobApplicationSummary = jobApplicationSummary;
-        this.jobApplicationFull = jobApplicationFull;
+        this.profileUsername = profileUsername;
+        this.profileID = profileID;
     }
 
-    Integer getProfileID() {
-        return profileID;
-    }
+    public String getEmail() {return this.email;}
 
-    String getPhoneNumber() {
-        return phoneNumber;
-    }
+    public String getPhoneNumber() {return this.phoneNumber;}
 
-    String getEmail() {return email;}
+    public String getSummary() {return this.summary;}
 
-    String getProfileUsername() {return profileUsername;}
+    public String getProfile() {return this.profile;}
 
-    boolean isEmployer() {return isEmployer;}
+    public Boolean getIsEmployer() {return this.isEmployer;}
 
-    boolean isJobSeeker() {return isJobSeeker;}
+    public String getProfileUsername() {return this.profileUsername;}
 
-    String getResumeSummary() {return resumeSummary;}
-
-    String getResumeFull() {return resumeFull;}
-
-    String getCompanyName() {return companyName;}
-
-    String getJobApplicationSummary() {return jobApplicationSummary;}
-
-    String getJobApplicationFull() {return jobApplicationFull;}
-
-
-
+    public Integer getProfileID() {return this.profileID;}
 }
