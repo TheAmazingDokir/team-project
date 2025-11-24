@@ -6,14 +6,14 @@ import entity.EmployerProfile;
 /**
  * The Change Profile Interactor.
  */
-public class ChangeProfileInteractor implements ChangeProfileInputBoundry{
+public class ChangeProfileInteractor implements ChangeProfileInputBoundary {
     private final ChangeProfileDataAccessInterface changeProfileDataAccessObject;
-    private final ChangeProfileOutputBoundry changeProfileOutputBoundry;
+    private final ChangeProfileOutputBoundary changeProfileOutputBoundary;
 
     public ChangeProfileInteractor(ChangeProfileDataAccessInterface changeProfileDataAccessObject,
-                                   ChangeProfileOutputBoundry changeProfileOutputBoundry){
+                                   ChangeProfileOutputBoundary changeProfileOutputBoundary){
         this.changeProfileDataAccessObject = changeProfileDataAccessObject;
-        this.changeProfileOutputBoundry = changeProfileOutputBoundry;
+        this.changeProfileOutputBoundary = changeProfileOutputBoundary;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class ChangeProfileInteractor implements ChangeProfileInputBoundry{
                 alteredProfile.setResumeFull(profile);
 
                 changeProfileDataAccessObject.UploadProfileData(alteredProfile);
-                changeProfileOutputBoundry.prepareSuccessView(new ChangeProfileOutputData(profileID));
+                changeProfileOutputBoundary.prepareSuccessView(new ChangeProfileOutputData(profileID));
             }
             if (isEmployer){
                 EmployerProfile alteredProfile = new EmployerProfile(profileID,email,phoneNumber,profileUsername);
@@ -44,7 +44,7 @@ public class ChangeProfileInteractor implements ChangeProfileInputBoundry{
                 alteredProfile.setCompanyName(companyName);
 
                 changeProfileDataAccessObject.UploadProfileData(alteredProfile);
-                changeProfileOutputBoundry.prepareSuccessView(new ChangeProfileOutputData(profileID));
+                changeProfileOutputBoundary.prepareSuccessView(new ChangeProfileOutputData(profileID));
             }
         }
         else {
@@ -54,7 +54,7 @@ public class ChangeProfileInteractor implements ChangeProfileInputBoundry{
                 alteredProfile.setResumeFull(profile);
 
                 changeProfileDataAccessObject.ChangeProfileData(alteredProfile);
-                changeProfileOutputBoundry.prepareSuccessView(new ChangeProfileOutputData(profileID));
+                changeProfileOutputBoundary.prepareSuccessView(new ChangeProfileOutputData(profileID));
             }
             if (isEmployer){
                 EmployerProfile alteredProfile = new EmployerProfile(profileID,email,phoneNumber,profileUsername);
@@ -63,11 +63,11 @@ public class ChangeProfileInteractor implements ChangeProfileInputBoundry{
                 alteredProfile.setCompanyName(companyName);
 
                 changeProfileDataAccessObject.ChangeProfileData(alteredProfile);
-                changeProfileOutputBoundry.prepareSuccessView(new ChangeProfileOutputData(profileID));
+                changeProfileOutputBoundary.prepareSuccessView(new ChangeProfileOutputData(profileID));
             }
 
             else{
-                changeProfileOutputBoundry.prepareFailView("Error: Database Update Unsuccessful");
+                changeProfileOutputBoundary.prepareFailView("Error: Database Update Unsuccessful");
             }
         }
     }

@@ -3,7 +3,7 @@ package use_case.change_profile_info;
 /**
  * Input Boundary for actions which are related to ChangeProfile.
  */
-public interface ChangeProfileInputBoundry{
+public interface ChangeProfileInputBoundary {
 
     /**
      * Executes the change profile use case.
