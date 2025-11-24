@@ -13,10 +13,18 @@ public interface ChangeProfileDataAccessInterface {
      * @return true if a user with the given profileID exists; false otherwise
      */
     boolean CheckProfileExists(Integer userID);
+
     /**
      * Updates the data of the given user.
      * @param userProfile the userProfile to look for
-     * @return user object with the altered userProfile data.
+     * @return void. Change the DB.
      */
     void ChangeProfileData(UserProfile userProfile);
+
+    /**
+     * Upload the data of the given user if it doesn't exist.
+     * @param userProfile the userProfile to look for
+     * @return void. Change the DB..
+     */
+    void UploadProfileData(UserProfile userProfile);
 }
