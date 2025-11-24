@@ -20,6 +20,7 @@ public class ChangeProfileView extends JPanel implements ActionListener, Propert
     private ChangeProfileController changeProfileController = null;
 
     private final JTextField emailField;
+    private final JTextField profileUsernameField;
     private final JTextField phoneNumberField;
     private final JComboBox<String> roleComboBox;
     private final JTextArea summaryTextArea;
@@ -55,6 +56,11 @@ public class ChangeProfileView extends JPanel implements ActionListener, Propert
 
         mainPanel.add(title);
         mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+
+        // Profile Username
+        profileUsernameField = new JTextField();
+        configureTextField(profileUsernameField);
+        JPanel profileUsernamePanel = createLabeledRow("Profile Username", profileUsernameField);
 
         // Email
         emailField = new JTextField();
@@ -112,6 +118,7 @@ public class ChangeProfileView extends JPanel implements ActionListener, Propert
                     final String role = (String) roleComboBox.getSelectedItem();
                     final boolean isEmployer = "Employer".equals(role);
                     changeProfileController.execute(
+                            profileUsernameField.getText(),
                             emailField.getText(),
                             phoneNumberField.getText(),
                             summaryTextArea.getText(),
@@ -125,6 +132,8 @@ public class ChangeProfileView extends JPanel implements ActionListener, Propert
         cancelButton.addActionListener(this);
 
         // Add everything to panel
+        mainPanel.add(profileUsernamePanel);
+        mainPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         mainPanel.add(emailPanel);
         mainPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         mainPanel.add(phonePanel);
@@ -236,6 +245,9 @@ public class ChangeProfileView extends JPanel implements ActionListener, Propert
     private void setFields(ChangeProfileState state) {
         if (state == null) {
             return;
+        }
+        if (state.getProfileUsername() != null) {
+            profileUsernameField.setText(state.getProfileUsername());
         }
         if (state.getEmail() != null) {
             emailField.setText(state.getEmail());
