@@ -5,7 +5,7 @@ import entity.UserMatches;
 /**
  * Contains necessary methods for the Update Matches use case
  */
-public interface UpdateMatchesUserDataAccessInterface {
+public interface IUpdateMatchesUserDataAccess {
 
     /**
      * Gets the UserMatches object for the given User ID
