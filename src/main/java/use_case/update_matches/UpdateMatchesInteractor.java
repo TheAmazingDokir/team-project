@@ -5,8 +5,8 @@ import entity.UserMatches;
 /**
  * The Update Matches Interactor
  */
-public class UpdateMatchesInteractor implements UpdateMatchesInputBoundary {
-    private final UpdateMatchesUserDataAccessInterface o = new UpdateMatchesUserDataAccessObject();
+public class UpdateMatchesInteractor implements IUpdateMatchesInputBoundary {
+    private final IUpdateMatchesUserDataAccess o = new UpdateMatchesUserDataAccessObject();
 
     /**
      * If both users have already approved each other, then add them to each others' matches atrtribute
