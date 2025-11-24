@@ -1,9 +1,11 @@
 package app;
 
 import data_access.FileUserDataAccessObject;
+import data_access.MongoDBProfileDataAccessObject;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.create_profile.ChangeProfileController;
+import interface_adapter.create_profile.ChangeProfilePresenter;
 import interface_adapter.create_profile.ChangeProfileViewModel;
 import interface_adapter.logged_in.ChangePasswordController;
 import interface_adapter.logged_in.ChangePasswordPresenter;
@@ -21,6 +23,7 @@ import use_case.change_password.ChangePasswordInteractor;
 import use_case.change_password.ChangePasswordOutputBoundary;
 import use_case.change_profile_info.ChangeProfileInputBoundary;
 import use_case.change_profile_info.ChangeProfileInteractor;
+import use_case.change_profile_info.ChangeProfileOutputBoundary;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
@@ -58,6 +61,7 @@ public class AppBuilder {
     private LoggedInView loggedInView;
     private LoginView loginView;
 
+    private ChangeProfileInteractor changeProfileInteractor;
     private ChangeProfileViewModel changeProfileViewModel;
     private ChangeProfileView changeProfileView;
     private ChangeProfileController changeProfileController;
@@ -89,7 +93,11 @@ public class AppBuilder {
 
     public AppBuilder addChangeProfileView() {
         changeProfileViewModel = new ChangeProfileViewModel();
-        changeProfileController = new ChangeProfileController(new ChangeProfileInteractor());
+
+        final ChangeProfileOutputBoundary changeProfileOutputBoundary = new ChangeProfilePresenter(changeProfileViewModel, viewManagerModel);
+
+        changeProfileInteractor = new ChangeProfileInteractor(new MongoDBProfileDataAccessObject(), changeProfileOutputBoundary);
+        changeProfileController = new ChangeProfileController(changeProfileInteractor, viewManagerModel);
         changeProfileView = new ChangeProfileView(changeProfileViewModel);
         changeProfileView.setChangeProfileController(changeProfileController);
         cardPanel.add(changeProfileView, changeProfileView.getViewName());
