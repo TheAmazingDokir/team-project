@@ -5,7 +5,7 @@ package entity;
  */
 public class UserFactory {
 
-    public User create(String name, String password) {
-        return new User(name, password, new JobSeekerProfile(0, "", "", name));
+    public User create(int userId, String name, String password) {
+        return new User(userId, name, password, null);
     }
 }
