@@ -7,7 +7,6 @@ import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
 import use_case.logout.LogoutOutputBoundary;
-import use_case.logout.LogoutOutputData;
 
 /**
  * The Presenter for the Logout Use Case.
@@ -27,7 +26,7 @@ public class LogoutPresenter implements LogoutOutputBoundary {
     }
 
     @Override
-    public void prepareSuccessView(LogoutOutputData response) {
+    public void prepareSuccessView() {
         // We need to switch to the login view, which should have
         // an empty username and password.
 
@@ -40,13 +39,6 @@ public class LogoutPresenter implements LogoutOutputBoundary {
         LoggedInState loggedInState = loggedInViewModel.getState();
         loggedInState.setUsername("");
         loggedInViewModel.firePropertyChange();
-
-        // 1. get the LoginState out of the appropriate View Model,
-        // 2. set the username in the state to be the username of the user that just logged out,
-        // 3. firePropertyChanged so that the View that is listening is updated.
-        LoginState loginState = loginViewModel.getState();
-        loginState.setUsername(response.getUsername());
-        loginViewModel.firePropertyChange();
 
         // This code tells the View Manager to switch to the LoginView.
         ViewManagerState state = viewManagerModel.getState();

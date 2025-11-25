@@ -9,25 +9,10 @@ public interface LoginUserDataAccessInterface {
 
     /**
      * Checks if the given username exists.
-     * @param username the username to look for
-     * @return true if a user with the given username exists; false otherwise
+     * @param name the username to look for
+     * @param password the password to look for
+     * @return true if a user with the given username exists with the given password set; false otherwise
      */
-    boolean existsByName(String username);
-
-    /**
-     * Saves the user.
-     * @param user the user to save
-     */
-    void save(User user);
-
-    /**
-     * Returns the user with the given username.
-     * @param username the username to look up
-     * @return the user with the given username
-     */
-    User get(String username);
-
-    void setCurrentUsername(String name);
-
-    String getCurrentUsername();
+    boolean existsByNameAndPassword(String name, String password);
+    int getUserIdByNameAndPassword(String name, String password);
 }
