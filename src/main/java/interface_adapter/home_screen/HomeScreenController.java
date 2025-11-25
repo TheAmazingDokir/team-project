@@ -27,13 +27,23 @@ public class HomeScreenController {
         final ApproveRejectProfileInputData approveRejectProfileInputData =
                 new ApproveRejectProfileInputData(currentId, otherId, isApprove);
 
-        final RecommendProfileInputData recomendatiomProfileInputData =
+        final RecommendProfileInputData recommendationProfileInputData =
                 new RecommendProfileInputData(currentId);
 
         approveRejectProfileUseCaseInteractor.execute(approveRejectProfileInputData);
 
-        recomendatiomProfileUseCaseInteractor.execute(recomendatiomProfileInputData);
+        recomendatiomProfileUseCaseInteractor.execute(recommendationProfileInputData);
 
+    }
+
+    /**
+     * Executes the Recommend Use Case separately (needed to get the initial recommendation)
+     * @param currentId the id of current user
+     */
+    public void execute(Integer currentId) {
+        final RecommendProfileInputData recommendationProfileInputData =
+                new RecommendProfileInputData(currentId);
+        recomendatiomProfileUseCaseInteractor.execute(recommendationProfileInputData);
     }
 }
 
