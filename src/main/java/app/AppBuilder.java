@@ -1,9 +1,10 @@
 package app;
 
-import data_access.FileUserDataAccessObject;
 import data_access.MongoDBProfileDataAccessObject;
+import data_access.MongoDBUserDataAccessObject;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.ViewManagerState;
 import interface_adapter.create_profile.ChangeProfileController;
 import interface_adapter.create_profile.ChangeProfilePresenter;
 import interface_adapter.create_profile.ChangeProfileViewModel;
@@ -48,11 +49,8 @@ public class AppBuilder {
     // set which data access implementation to use, can be any
     // of the classes from the data_access package
 
-    // DAO version using local file storage
-    final FileUserDataAccessObject userDataAccessObject = new FileUserDataAccessObject("users.csv", userFactory);
-
     // DAO version using a shared external database
-    // final DBUserDataAccessObject userDataAccessObject = new DBUserDataAccessObject(userFactory);
+     final MongoDBUserDataAccessObject userDataAccessObject = new MongoDBUserDataAccessObject(userFactory);
 
     private SignupView signupView;
     private SignupViewModel signupViewModel;
@@ -159,9 +157,9 @@ public class AppBuilder {
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         application.add(cardPanel);
-
-//        viewManagerModel.setState(signupView.getViewName());
-        viewManagerModel.setState(signupView.getViewName());
+        ViewManagerState state  = viewManagerModel.getState();
+        state.setCurrentView(signupView.getViewName());
+        viewManagerModel.setState(state);
         viewManagerModel.firePropertyChange();
 
         return application;

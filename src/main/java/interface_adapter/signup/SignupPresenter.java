@@ -1,6 +1,7 @@
 package interface_adapter.signup;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.ViewManagerState;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
 import use_case.signup.SignupOutputBoundary;
@@ -30,7 +31,9 @@ public class SignupPresenter implements SignupOutputBoundary {
         loginState.setUsername(response.getUsername());
         loginViewModel.firePropertyChange();
 
-        viewManagerModel.setState(loginViewModel.getViewName());
+        ViewManagerState state = viewManagerModel.getState();
+        state.setCurrentView(loginViewModel.getViewName());
+        viewManagerModel.setState(state);
         viewManagerModel.firePropertyChange();
     }
 
@@ -43,7 +46,9 @@ public class SignupPresenter implements SignupOutputBoundary {
 
     @Override
     public void switchToLoginView() {
-        viewManagerModel.setState(loginViewModel.getViewName());
+        ViewManagerState state = viewManagerModel.getState();
+        state.setCurrentView(loginViewModel.getViewName());
+        viewManagerModel.setState(state);
         viewManagerModel.firePropertyChange();
     }
 }
