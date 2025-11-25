@@ -15,8 +15,8 @@ public class MatchPageController {
      * @param
      */
     public void execute(Integer currentId) {
-        final UpdateMatchesInputData updateMatchesInputData = new UpdateMatchesInputData(currentId);
-        updateMatchesUseCaseInteractor.execute(updateMatchesInputData);
+        //final UpdateMatchesInputData updateMatchesInputData = new UpdateMatchesInputData(currentId);
+        updateMatchesUseCaseInteractor.execute(1,2);
 
     }
 }

@@ -35,7 +35,7 @@ public class MatchPageView extends JPanel implements ActionListener, PropertyCha
 
     private final JScrollPane matchUserScrollPane = new JScrollPane();
 
-    private final JTextArea resumeTextArea = new JTextArea(10, 40);
+    private final JTextArea resumeTextArea = new JTextArea(10, 20);
     private final JScrollPane resumeScrollPane = new JScrollPane(resumeTextArea);
 
 
