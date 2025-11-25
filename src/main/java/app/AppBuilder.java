@@ -2,12 +2,17 @@ package app;
 
 import data_access.MongoDBProfileDataAccessObject;
 import data_access.MongoDBUserDataAccessObject;
+import data_access.PineconeDataAccessObject;
+import data_access.ProfileMatchesDataAccessObject;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.ViewManagerState;
 import interface_adapter.create_profile.ChangeProfileController;
 import interface_adapter.create_profile.ChangeProfilePresenter;
 import interface_adapter.create_profile.ChangeProfileViewModel;
+import interface_adapter.home_screen.HomeScreenController;
+import interface_adapter.home_screen.HomeScreenPresenter;
+import interface_adapter.home_screen.HomeScreenViewModel;
 import interface_adapter.logged_in.ChangePasswordController;
 import interface_adapter.logged_in.ChangePasswordPresenter;
 import interface_adapter.logged_in.LoggedInViewModel;
@@ -19,6 +24,7 @@ import interface_adapter.logout.LogoutPresenter;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
+import use_case.approve_reject_profile.ApproveRejectProfileInteractor;
 import use_case.change_password.ChangePasswordInputBoundary;
 import use_case.change_password.ChangePasswordInteractor;
 import use_case.change_password.ChangePasswordOutputBoundary;
@@ -31,6 +37,7 @@ import use_case.login.LoginOutputBoundary;
 import use_case.logout.LogoutInputBoundary;
 import use_case.logout.LogoutInteractor;
 import use_case.logout.LogoutOutputBoundary;
+import use_case.recommend_profile.RecommendProfileInteractor;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
@@ -49,8 +56,13 @@ public class AppBuilder {
     // set which data access implementation to use, can be any
     // of the classes from the data_access package
 
-    // DAO version using a shared external database
-     final MongoDBUserDataAccessObject userDataAccessObject = new MongoDBUserDataAccessObject(userFactory);
+    // DAO using a shared external database for users and profiles
+    final MongoDBUserDataAccessObject userDataAccessObject = new MongoDBUserDataAccessObject(userFactory);
+    final MongoDBProfileDataAccessObject profileDataAccessObject = new MongoDBProfileDataAccessObject();
+    final ProfileMatchesDataAccessObject profileMatchesDataAccessObject = new ProfileMatchesDataAccessObject();
+
+    // DAO for service to obtain semantic recommendations
+    PineconeDataAccessObject pineconeAccess = new PineconeDataAccessObject();
 
     private SignupView signupView;
     private SignupViewModel signupViewModel;
@@ -58,6 +70,13 @@ public class AppBuilder {
     private LoggedInViewModel loggedInViewModel;
     private LoggedInView loggedInView;
     private LoginView loginView;
+
+    private HomeScreenViewModel homeScreenViewModel;
+    private HomeScreenView homeScreenView;
+
+    // Shared use cases that are used among several pages
+    private ApproveRejectProfileInteractor  approveRejectProfileInteractor;
+    private RecommendProfileInteractor  recommendProfileInteractor;
 
     private ChangeProfileInteractor changeProfileInteractor;
     private ChangeProfileViewModel changeProfileViewModel;
@@ -102,6 +121,22 @@ public class AppBuilder {
         return this;
     }
 
+    public AppBuilder addHomeScreenUseCase(){
+        homeScreenViewModel = new HomeScreenViewModel();
+        homeScreenView = new HomeScreenView(homeScreenViewModel);
+        final HomeScreenPresenter homeScreenPresenter = new HomeScreenPresenter(homeScreenViewModel);
+
+        approveRejectProfileInteractor = new ApproveRejectProfileInteractor(profileMatchesDataAccessObject);
+        recommendProfileInteractor = new RecommendProfileInteractor(profileDataAccessObject, pineconeAccess,
+                homeScreenPresenter, profileMatchesDataAccessObject);
+
+        final HomeScreenController homeScreenController =
+                new HomeScreenController(approveRejectProfileInteractor, recommendProfileInteractor);
+        homeScreenView.setHomeScreenController(homeScreenController);
+        cardPanel.add(homeScreenView, homeScreenView.getViewName());
+        return this;
+    }
+
     public AppBuilder addSignupUseCase() {
         final SignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel,
                 signupViewModel, loginViewModel);
@@ -115,9 +150,9 @@ public class AppBuilder {
 
     public AppBuilder addLoginUseCase() {
         final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
-                loggedInViewModel, loginViewModel);
+                loginViewModel, changeProfileViewModel, homeScreenViewModel);
         final LoginInputBoundary loginInteractor = new LoginInteractor(
-                userDataAccessObject, loginOutputBoundary);
+                userDataAccessObject, profileDataAccessObject, loginOutputBoundary);
 
         LoginController loginController = new LoginController(loginInteractor);
         loginView.setLoginController(loginController);

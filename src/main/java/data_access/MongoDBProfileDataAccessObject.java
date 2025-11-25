@@ -19,9 +19,11 @@ import use_case.change_profile_info.ChangeProfileDataAccessInterface;
 import entity.EmployerProfile;
 import entity.JobSeekerProfile;
 import entity.UserProfile;
+import use_case.login.LoginProfileDataAccessInterface;
+import use_case.recommend_profile.RecommendProfileProfileDataAccessInterface;
 
 
-public class MongoDBProfileDataAccessObject implements ChangeProfileDataAccessInterface {
+public class MongoDBProfileDataAccessObject implements ChangeProfileDataAccessInterface, LoginProfileDataAccessInterface, RecommendProfileProfileDataAccessInterface {
 
     private static final String CONNECTION_STRING =
             "mongodb+srv://Eren:<db_password>@profiles.zbxygns.mongodb.net/?appName=profiles";
@@ -51,6 +53,18 @@ public class MongoDBProfileDataAccessObject implements ChangeProfileDataAccessIn
             } catch (MongoException e) {
                 throw new RuntimeException("Failed to ping MongoDB Servers", e);
         }
+    }
+
+    @Override
+    public UserProfile getProfileById(int profileId){
+        Document profileDocument = profilesCollection
+                .find(Filters.eq("_id", profileId))
+                .first();
+        if (profileDocument == null){
+            return null;
+        }
+
+        return DocumentToUserProfile(profileDocument);
     }
 
     @Override
@@ -99,6 +113,37 @@ public class MongoDBProfileDataAccessObject implements ChangeProfileDataAccessIn
             profileDocument.append("resumeFull", jobSeeker.getFullProfileAsString());
         }
         return profileDocument;
+    }
+
+    public UserProfile DocumentToUserProfile(Document profileDocument){
+        int userId = profileDocument.getInteger("_id");
+        String email = profileDocument.getString("email");
+        String phoneNumber = profileDocument.getString("phoneNumber");
+        String profileUsername = profileDocument.getString("profileUsername");
+
+        String type = profileDocument.getString("type");
+        if (type.equals("EmployerProfile")) {
+            String companyName = profileDocument.getString("companyName");
+            String applicationSummary = profileDocument.getString("applicationSummary");
+            String applicationFull = profileDocument.getString("applicationFull");
+
+            EmployerProfile userProfile = new EmployerProfile(userId, email, phoneNumber, profileUsername);
+            userProfile.setCompanyName(companyName);
+            userProfile.setJobApplicationSummary(applicationSummary);
+            userProfile.setJobApplicationFull(applicationFull);
+
+            return userProfile;
+        } else if (type.equals("JobSeekerProfile")) {
+            String resumeSummary = profileDocument.getString("resumeSummary");
+            String resumeFull = profileDocument.getString("resumeFull");
+
+            JobSeekerProfile userProfile = new JobSeekerProfile(userId, email, phoneNumber, profileUsername);
+            userProfile.setResumeSummary(resumeSummary);
+            userProfile.setResumeFull(resumeFull);
+
+            return userProfile;
+        }
+        return null;
     }
 
     @Override
