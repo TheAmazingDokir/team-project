@@ -25,6 +25,7 @@ public class User {
         if ("".equals(password)) {
             throw new IllegalArgumentException("Password cannot be empty");
         }
+        this.userId = userId;
         this.name = name;
         this.password = password;
         this.profile = profile;
