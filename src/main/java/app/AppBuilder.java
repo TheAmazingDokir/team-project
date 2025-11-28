@@ -22,7 +22,6 @@ import interface_adapter.signup.SignupViewModel;
 import use_case.change_password.ChangePasswordInputBoundary;
 import use_case.change_password.ChangePasswordInteractor;
 import use_case.change_password.ChangePasswordOutputBoundary;
-import use_case.change_profile_info.ChangeProfileInputBoundary;
 import use_case.change_profile_info.ChangeProfileInteractor;
 import use_case.change_profile_info.ChangeProfileOutputBoundary;
 import use_case.login.LoginInputBoundary;
