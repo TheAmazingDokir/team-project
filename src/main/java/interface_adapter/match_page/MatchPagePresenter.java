@@ -1,7 +1,11 @@
 package interface_adapter.match_page;
 
+import entity.UserMatches;
+import entity.UserProfile;
 import use_case.update_matches.UpdateMatchesOutputBoundary;
 import use_case.update_matches.UpdateMatchesOutputData;
+
+import java.util.ArrayList;
 
 public class MatchPagePresenter implements UpdateMatchesOutputBoundary {
 
@@ -16,11 +20,13 @@ public class MatchPagePresenter implements UpdateMatchesOutputBoundary {
     @Override
     public void prepareSuccessView(UpdateMatchesOutputData response) {
         final MatchPageState matchPageState = matchPageViewModel.getState();
-        matchPageState.setCurrentId(response.getUserProfile().getUserId());
-        matchPageState.setEmail(response.getUserProfile().getEmail());
-        matchPageState.setName(response.getUserProfile().getProfileUsername());
-        matchPageState.setPhone(response.getUserProfile().getPhoneNumber());
-        matchPageState.setResume(response.getUserProfile().getSummaryProfileAsString());
+        ArrayList<UserProfile> users = response.getUsers();
+        matchPageState.setUserMatches(users);
+        ArrayList<String> names = new ArrayList<>(users.size());
+        for(int i= 0;i<users.size();i++){
+            names.add(users.get(i).getProfileUsername());
+        }
+        matchPageState.setUserMatchesName(names);
         // matchPageState.setUserMatches(response.);
         // matchPageState.setUserMatchesName(response.);
         this.matchPageViewModel.firePropertyChange();

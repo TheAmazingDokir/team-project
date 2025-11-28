@@ -4,6 +4,7 @@ import entity.UserMatches;
 import entity.UserProfile;
 import data_access.MongoDBUserMatchesDataAccessObject;
 import data_access.MongoDBProfileDataAccessObject;
+import use_case.recommend_profile.RecommendProfileOutputBoundary;
 
 import java.util.ArrayList;
 
@@ -13,13 +14,18 @@ import java.util.ArrayList;
 public class UpdateMatchesInteractor implements IUpdateMatchesInputBoundary {
     MongoDBUserMatchesDataAccessObject dao = new MongoDBUserMatchesDataAccessObject();
     MongoDBProfileDataAccessObject profileDao = new MongoDBProfileDataAccessObject();
+    private final UpdateMatchesOutputBoundary profilePresenter;
 
+    public UpdateMatchesInteractor(UpdateMatchesOutputBoundary profilePresenter) {
+        this.profilePresenter = profilePresenter;
+    }
     /**
      * If both users have already approved each other, then add them to each others' matches attribute
-     * @param user1Id the first user in the match
-     * @param user2Id the second user in the match
+     * @param inputData
      */
-    public void createMatch(int user1Id, int user2Id) {
+    public void createMatch(UpdateMatchesInputData inputData) {
+        int user1Id = inputData.getUser1Id();
+        int user2Id = inputData.getUser2Id();
         UserMatches user1Object = dao.getUserMatchesbyId(user1Id);
         UserMatches user2Object = dao.getUserMatchesbyId(user2Id);
 
@@ -33,7 +39,8 @@ public class UpdateMatchesInteractor implements IUpdateMatchesInputBoundary {
         }
     }
 
-    public ArrayList<UserProfile> userIdtoUserMatchesProfiles(int userId) {
+    public void userIdtoUserMatchesProfiles(UpdateMatchesInputData inputData) {
+        int userId = inputData.getCurrentId();
         // get the provided user's UserMatches object
         UserMatches userMatches = dao.getUserMatchesbyId(userId);
 
@@ -44,7 +51,9 @@ public class UpdateMatchesInteractor implements IUpdateMatchesInputBoundary {
             UserProfile approvedProfile = profileDao.getProfileById(approvedId);
             approvedProfiles.add(approvedProfile);
         }
+        UpdateMatchesOutputData outputData = new UpdateMatchesOutputData(approvedProfiles);
 
-        return approvedProfiles;
+        profilePresenter.prepareSuccessView(outputData);
+
     }
 }
