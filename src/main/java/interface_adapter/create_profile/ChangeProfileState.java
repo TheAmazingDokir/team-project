@@ -7,6 +7,7 @@ public class ChangeProfileState {
     private String profile;
     private Boolean isEmployer;
     private String profileUsername;
+    private String errorMessage;
 
     public void setEmail(String email) {this.email = email;}
     public void setPhoneNumber(String phoneNumber) {this.phoneNumber = phoneNumber;}
@@ -14,6 +15,7 @@ public class ChangeProfileState {
     public void setProfile(String profile) {this.profile = profile;}
     public void setIsEmployer(Boolean isEmployer) {this.isEmployer = isEmployer;}
     public void setProfileUsername(String profileUsername) {this.profileUsername = profileUsername;}
+    public void setErrorMessage(String errorMessage) {this.errorMessage = errorMessage;}
 
     public String getEmail() {return email;}
     public String getPhoneNumber() {return phoneNumber;}
@@ -21,4 +23,5 @@ public class ChangeProfileState {
     public String getProfile() {return profile;}
     public Boolean getIsEmployer() {return isEmployer;}
     public String getProfileUsername() {return profileUsername;}
+    public String getErrorMessage() {return errorMessage;}
 }

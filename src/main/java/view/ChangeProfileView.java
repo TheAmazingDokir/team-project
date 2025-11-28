@@ -29,7 +29,6 @@ public class ChangeProfileView extends JPanel implements ActionListener, Propert
     private final JScrollPane profileScrollPane;
 
     private final JButton saveButton;
-    private final JButton cancelButton;
 
     // Consistent width for all input components
     private static final int FIELD_WIDTH = 400;
@@ -96,18 +95,14 @@ public class ChangeProfileView extends JPanel implements ActionListener, Propert
         buttonPanel.setBorder(new EmptyBorder(10, 0, 0, 0));
 
         saveButton = new JButton("Save");
-        cancelButton = new JButton("Cancel");
 
         Dimension buttonSize = new Dimension(120, 32);
         saveButton.setPreferredSize(buttonSize);
         saveButton.setMaximumSize(buttonSize);
-        cancelButton.setPreferredSize(buttonSize);
-        cancelButton.setMaximumSize(buttonSize);
 
         buttonPanel.add(Box.createHorizontalGlue());
         buttonPanel.add(saveButton);
         buttonPanel.add(Box.createRigidArea(new Dimension(20, 0)));
-        buttonPanel.add(cancelButton);
         buttonPanel.add(Box.createHorizontalGlue());
 
         // Save button action listerner
@@ -128,8 +123,6 @@ public class ChangeProfileView extends JPanel implements ActionListener, Propert
                 }
             }
         });
-
-        cancelButton.addActionListener(this);
 
         // Add everything to panel
         mainPanel.add(profileUsernamePanel);
@@ -239,6 +232,17 @@ public class ChangeProfileView extends JPanel implements ActionListener, Propert
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         final ChangeProfileState state = (ChangeProfileState) evt.getNewValue();
+
+        if (state.getErrorMessage() != null && !state.getErrorMessage().isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    state.getErrorMessage(),
+                    "Could not add profile",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            state.setErrorMessage(null);
+        }
+
         setFields(state);
     }
 

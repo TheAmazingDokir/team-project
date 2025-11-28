@@ -21,13 +21,6 @@ public class ChangeProfilePresenter implements ChangeProfileOutputBoundary {
         this.changeProfileViewModel = changeProfileViewModel;
         this.viewManagerModel = viewManagerModel;
         this.homeScreenViewModel = homeScreenViewModel;
-
-        if (this.viewManagerModel.getState().isHasProfile()) {
-            System.out.println("PROFILE ALREADY EXISTS");
-        }
-        else {
-            System.out.println("PROFILE DOESN'T ALREADY EXISTS");
-        }
     }
 
     @Override
@@ -54,5 +47,9 @@ public class ChangeProfilePresenter implements ChangeProfileOutputBoundary {
     @Override
     public void prepareFailView(String errorMessage) {
         System.out.println("ChangeProfilePresenter prepareFailView");
+        ChangeProfileState state = changeProfileViewModel.getState();
+        state.setErrorMessage(errorMessage);
+        changeProfileViewModel.setState(state);
+        changeProfileViewModel.firePropertyChange();
     }
 }
