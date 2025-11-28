@@ -5,11 +5,9 @@ import use_case.update_matches.*;
 public class MatchPageController {
 
     private final IUpdateMatchesInputBoundary updateMatchesUseCaseInteractor;
-    private final MatchPagePresenter matchPagePresenter;
 
     public MatchPageController(IUpdateMatchesInputBoundary updateMatchesUseCaseInteractor) {
         this.updateMatchesUseCaseInteractor = updateMatchesUseCaseInteractor;
-        this.matchPagePresenter = new MatchPagePresenter()
     }
 
     /**
