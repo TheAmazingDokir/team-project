@@ -2,10 +2,11 @@ package interface_adapter.match_page;
 
 import java.util.ArrayList;
 import entity.UserMatches;
+import entity.UserProfile;
 
 public class MatchPageState {
     private Integer currentId;
-    private ArrayList<UserMatches> matchUser;
+    private ArrayList<UserProfile> matchUser;
     private ArrayList<String> userMatchesName;
     private String resume;
     private String name;
@@ -14,7 +15,7 @@ public class MatchPageState {
 
     public Integer getCurrentId() { return currentId; }
 
-    public ArrayList<UserMatches> getUserMatches() { return matchUser; }
+    public ArrayList<UserProfile> getUserMatches() { return matchUser; }
 
     public ArrayList<String> getUserMatchesName() { return userMatchesName; }
 
@@ -30,7 +31,7 @@ public class MatchPageState {
         this.currentId = currentId;
     }
 
-    public void setUserMatches(ArrayList<UserMatches> matchUser) {
+    public void setUserMatches(ArrayList<UserProfile> matchUser) {
         this.matchUser = matchUser;
     }
 
