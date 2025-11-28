@@ -11,12 +11,11 @@ public class MatchPageController {
     }
 
     /**
-     * Executes the Home Screen Use Case.
-     * @param
+     * Executes the User Matches Use Case.
+     * @param currentId user's ID
      */
-    public void execute(Integer currentId) {
+    public void userIdtoUserMatchesProfiles(Integer currentId) {
         //final UpdateMatchesInputData updateMatchesInputData = new UpdateMatchesInputData(currentId);
-        updateMatchesUseCaseInteractor.execute(1,2);
-
+        updateMatchesUseCaseInteractor.userIdtoUserMatchesProfiles(currentId);
     }
 }
