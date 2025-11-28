@@ -4,10 +4,12 @@ import use_case.update_matches.*;
 
 public class MatchPageController {
 
-    private final UpdateMatchesInputBoundary updateMatchesUseCaseInteractor;
+    private final IUpdateMatchesInputBoundary updateMatchesUseCaseInteractor;
+    private final MatchPagePresenter matchPagePresenter;
 
-    public MatchPageController(UpdateMatchesInputBoundary updateMatchesUseCaseInteractor) {
+    public MatchPageController(IUpdateMatchesInputBoundary updateMatchesUseCaseInteractor) {
         this.updateMatchesUseCaseInteractor = updateMatchesUseCaseInteractor;
+        this.matchPagePresenter = new MatchPagePresenter()
     }
 
     /**
@@ -15,7 +17,12 @@ public class MatchPageController {
      * @param currentId user's ID
      */
     public void userIdtoUserMatchesProfiles(Integer currentId) {
-        //final UpdateMatchesInputData updateMatchesInputData = new UpdateMatchesInputData(currentId);
-        updateMatchesUseCaseInteractor.userIdtoUserMatchesProfiles(currentId);
+        final UpdateMatchesInputData updateMatchesInputData = new UpdateMatchesInputData(currentId);
+        updateMatchesUseCaseInteractor.userIdtoUserMatchesProfiles(updateMatchesInputData);
     }
+
+    public void getInfo(String name){
+
+    }
+
 }
