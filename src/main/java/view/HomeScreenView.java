@@ -14,7 +14,7 @@ import java.beans.PropertyChangeListener;
 
 
 public class HomeScreenView extends JPanel implements ActionListener, PropertyChangeListener {
-    private final String viewName = "Home Screen";
+    private final String viewName = "home screen";
     private final HomeScreenViewModel homeScreenViewModel;
 
     private final JButton homeButton;
@@ -130,9 +130,14 @@ public class HomeScreenView extends JPanel implements ActionListener, PropertyCh
     }
 
     private void setFields(HomeScreenState state) {
-        // to make the userProfile class public
-        nameLabel.setText(state.getOtherProfileName());
-        homeScreenTextArea.setText(state.getOtherProfileSummary());
+        if (state.getOtherId() == null) {
+            // get initial recommendation
+            homeScreenController.execute(state.getCurrentId());
+        } else {
+            // to make the userProfile class public
+            nameLabel.setText(state.getOtherProfileName());
+            homeScreenTextArea.setText(state.getOtherProfileSummary());
+        }
     }
 
 

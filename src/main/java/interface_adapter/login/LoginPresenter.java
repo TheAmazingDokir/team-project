@@ -2,8 +2,9 @@ package interface_adapter.login;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.ViewManagerState;
-import interface_adapter.logged_in.LoggedInState;
-import interface_adapter.logged_in.LoggedInViewModel;
+import interface_adapter.create_profile.ChangeProfileViewModel;
+import interface_adapter.home_screen.HomeScreenState;
+import interface_adapter.home_screen.HomeScreenViewModel;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
 
@@ -13,31 +14,43 @@ import use_case.login.LoginOutputData;
 public class LoginPresenter implements LoginOutputBoundary {
 
     private final LoginViewModel loginViewModel;
-    private final LoggedInViewModel loggedInViewModel;
     private final ViewManagerModel viewManagerModel;
+    private final ChangeProfileViewModel changeProfileViewModel;
+    private final HomeScreenViewModel homeScreenViewModel;
 
     public LoginPresenter(ViewManagerModel viewManagerModel,
-                          LoggedInViewModel loggedInViewModel,
-                          LoginViewModel loginViewModel) {
+                          LoginViewModel loginViewModel,
+                          ChangeProfileViewModel changeProfileViewModel,
+                          HomeScreenViewModel homeScreenViewModel) {
         this.viewManagerModel = viewManagerModel;
-        this.loggedInViewModel = loggedInViewModel;
         this.loginViewModel = loginViewModel;
+        this.changeProfileViewModel = changeProfileViewModel;
+        this.homeScreenViewModel = homeScreenViewModel;
     }
 
     @Override
     public void prepareSuccessView(LoginOutputData response) {
-        // On success, update the loggedInViewModel's state
-        final LoggedInState loggedInState = loggedInViewModel.getState();
-        loggedInState.setUsername(response.getUsername());
-        this.loggedInViewModel.firePropertyChange();
-
+        // On success, update the state
         // and clear everything from the LoginViewModel's state
         loginViewModel.setState(new LoginState());
 
         // switch to the logged in view
         ViewManagerState state = this.viewManagerModel.getState();
-        state.setCurrentView(loggedInViewModel.getViewName());
+
         state.setLoggedIn(true);
+        state.setUserId(response.getUserId());
+
+        if(response.hasProfile()){
+            HomeScreenState homeScreenState = homeScreenViewModel.getState();
+            homeScreenState.setCurrentId(response.getUserId());
+            homeScreenViewModel.setState(homeScreenState);
+            homeScreenViewModel.firePropertyChange();
+
+            state.setCurrentView(homeScreenViewModel.getViewName());
+        }else{
+            state.setCurrentView(changeProfileViewModel.getViewName());
+        }
+
         this.viewManagerModel.setState(state);
         this.viewManagerModel.firePropertyChange();
     }
