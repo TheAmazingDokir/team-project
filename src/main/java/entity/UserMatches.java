@@ -44,4 +44,17 @@ public class UserMatches {
     public void addRejected(int declineId) {
         rejectedIds.add(declineId);
     }
+
+    // Set methods
+    public void setMatchIds(ArrayList<Integer> matchIds) {
+        this.matchIds = matchIds;
+    }
+
+    public void setApprovedIds(ArrayList<Integer> approvedIds) {
+        this.approvedIds = approvedIds;
+    }
+
+    public void setRejectedIds(ArrayList<Integer> rejectedIds) {
+        this.rejectedIds = rejectedIds;
+    }
 }
