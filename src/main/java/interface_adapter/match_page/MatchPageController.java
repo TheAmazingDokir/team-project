@@ -20,6 +20,8 @@ public class MatchPageController {
     }
 
     public void getInfo(String name){
+        final UpdateMatchesInputData updateMatchesInputData = new UpdateMatchesInputData(name);
+        updateMatchesUseCaseInteractor.getInfo(updateMatchesInputData);
 
     }
 

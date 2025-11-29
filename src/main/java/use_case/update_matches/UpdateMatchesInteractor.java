@@ -56,4 +56,10 @@ public class UpdateMatchesInteractor implements IUpdateMatchesInputBoundary {
         profilePresenter.prepareSuccessView(outputData);
 
     }
+
+    @Override
+    public void getInfo(UpdateMatchesInputData updateMatchesInputData) {
+        UpdateMatchesOutputData outputData = new UpdateMatchesOutputData(updateMatchesInputData.getCurrentName());
+        profilePresenter.updateInfo(outputData);
+    }
 }

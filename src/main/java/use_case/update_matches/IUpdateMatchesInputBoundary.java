@@ -20,4 +20,6 @@ public interface IUpdateMatchesInputBoundary {
      * @param
      */
     void userIdtoUserMatchesProfiles(UpdateMatchesInputData updateMatchesInputData);
+
+    void getInfo(UpdateMatchesInputData updateMatchesInputData);
 }

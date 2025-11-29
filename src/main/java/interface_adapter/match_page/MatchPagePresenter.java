@@ -31,4 +31,21 @@ public class MatchPagePresenter implements UpdateMatchesOutputBoundary {
         // matchPageState.setUserMatchesName(response.);
         this.matchPageViewModel.firePropertyChange();
     }
+
+    public void updateInfo(UpdateMatchesOutputData response) {
+        final MatchPageState matchPageState = matchPageViewModel.getState();
+        UserProfile user = null;
+        for (UserProfile userProfile : matchPageState.getUserMatches()) {
+            if (userProfile.getProfileUsername().equals(response.getCurrentName())) {
+                user = userProfile;
+            }
+        }
+        if (user != null) {
+            matchPageState.setName(user.getProfileUsername());
+            matchPageState.setEmail(user.getEmail());
+            matchPageState.setPhone(user.getPhoneNumber());
+            matchPageState.setResume(user.getFullProfileAsString());
+            matchPageViewModel.firePropertyChange();
+        }
+    }
 }

@@ -5,8 +5,6 @@ import interface_adapter.home_screen.HomeScreenController;
 import interface_adapter.home_screen.HomeScreenState;
 import interface_adapter.match_page.*;
 
-import Entities.*;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -128,12 +126,11 @@ public class MatchPageView extends JPanel implements ActionListener, PropertyCha
         // to make the userProfile class public
         for (int i = 0; i < state.getUserMatches().size(); i++) {
             JButton userButton = new JButton(state.getUserMatchesName().get(i));
-            Integer userId = state.getUserMatches().get(i).getUserId();
             userButton.addActionListener(
                     new ActionListener(){
                         public void actionPerformed(ActionEvent evt) {
                             if (evt.getSource().equals(userButton)) {
-                                matchPageController.execute(userId);
+                                matchPageController.getInfo(userButton.getName());
                             }
                         }
                     }

@@ -4,6 +4,7 @@ public class UpdateMatchesInputData {
     private int user1Id;
     private int user2Id;
     private int currentId;
+    private String currentName;
 
     public UpdateMatchesInputData(int currentId) {
         this.currentId = currentId;
@@ -11,6 +12,10 @@ public class UpdateMatchesInputData {
     public UpdateMatchesInputData(int user1Id, int user2Id) {
         this.user1Id = user1Id;
         this.user2Id = user2Id;
+    }
+
+    public UpdateMatchesInputData(String name) {
+        this.currentName = name;
     }
 
     public int getUser1Id() {
@@ -30,5 +35,11 @@ public class UpdateMatchesInputData {
     }
     public void setCurrentId(int currentId) {
         this.currentId = currentId;
+    }
+    public String getCurrentName() {
+        return currentName;
+    }
+    public void setCurrentName(String currentName) {
+        this.currentName = currentName;
     }
 }

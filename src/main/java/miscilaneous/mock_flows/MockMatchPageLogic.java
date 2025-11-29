@@ -22,12 +22,12 @@ public class MockMatchPageLogic {
         MatchPageState initState = matchPageViewModel.getState();
         initState.setCurrentId(12);
 
-        //MatchPagePresenter matchPagePresenter = new MatchPagePresenter(matchPageViewModel);
+        MatchPagePresenter matchPagePresenter = new MatchPagePresenter(matchPageViewModel);
 
 
         pineconeAccess.upsertProfiles(userProfileDataAccess.getAllUserProfiles());
 
-        UpdateMatchesInteractor updateMatchesInteractor = new UpdateMatchesInteractor();
+        UpdateMatchesInteractor updateMatchesInteractor = new UpdateMatchesInteractor(matchPagePresenter);
 
         MatchPageController matchPageController = new MatchPageController(updateMatchesInteractor);
 
