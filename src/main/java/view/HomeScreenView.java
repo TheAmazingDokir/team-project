@@ -17,11 +17,6 @@ public class HomeScreenView extends JPanel implements ActionListener, PropertyCh
     private final String viewName = "home screen";
     private final HomeScreenViewModel homeScreenViewModel;
 
-    private final JButton homeButton;
-    private final JButton editButton;
-    private final JButton matchButton;
-    private final JButton logoutButton;
-
     private final JLabel nameLabel = new JLabel("Name");
 
     private final JTextArea homeScreenTextArea = new JTextArea(10, 40);
@@ -29,7 +24,6 @@ public class HomeScreenView extends JPanel implements ActionListener, PropertyCh
 
     private final JButton likeButton;
     private final JButton dislikeButton;
-
     private HomeScreenController homeScreenController = null;
 
     public HomeScreenView(HomeScreenViewModel homeScreenViewModel) {
@@ -42,17 +36,6 @@ public class HomeScreenView extends JPanel implements ActionListener, PropertyCh
 
         this.scrollPane.setBounds(new Rectangle(20,20));
         this.scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-
-        final JPanel upperbuttonsPanel = new JPanel();
-        upperbuttonsPanel.setLayout(new BoxLayout(upperbuttonsPanel, BoxLayout.X_AXIS));
-        this.homeButton = new JButton("Home");
-        this.editButton = new JButton("Edit");
-        this.matchButton = new JButton("Match");
-        this.logoutButton = new JButton("Logout");
-        upperbuttonsPanel.add(homeButton);
-        upperbuttonsPanel.add(editButton);
-        upperbuttonsPanel.add(matchButton);
-        upperbuttonsPanel.add(logoutButton);
 
 
         nameLabel.setFont(new Font("Arial", Font.BOLD, 22));
@@ -110,7 +93,6 @@ public class HomeScreenView extends JPanel implements ActionListener, PropertyCh
                     }
                 }
         );
-        this.add(upperbuttonsPanel);
         this.add(namePanel);
         this.add(resumeInfo);
         this.add(buttons);
