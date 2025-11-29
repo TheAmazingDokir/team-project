@@ -54,7 +54,7 @@ public class TopMenuView extends JPanel {
                 public void actionPerformed(ActionEvent evt) {
                     if (evt.getSource().equals(homeButton)) {
                         ViewManagerState state = viewManagerModel.getState();
-                        if(!state.getCurrentView().equals(homeScreenViewModel.getViewName()) && state.hasProfile()){
+                        if(state.isLoggedIn() && !state.getCurrentView().equals(homeScreenViewModel.getViewName()) && state.hasProfile()){
                             state.setCurrentView(homeScreenViewModel.getViewName());
                             viewManagerModel.setState(state);
                             viewManagerModel.firePropertyChange();
@@ -69,7 +69,7 @@ public class TopMenuView extends JPanel {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(editButton)) {
                             ViewManagerState state = viewManagerModel.getState();
-                            if(!state.getCurrentView().equals(changeProfileViewModel.getViewName())){
+                            if(state.isLoggedIn() && !state.getCurrentView().equals(changeProfileViewModel.getViewName())){
                                 state.setCurrentView(changeProfileViewModel.getViewName());
                                 viewManagerModel.setState(state);
                                 viewManagerModel.firePropertyChange();
@@ -84,7 +84,7 @@ public class TopMenuView extends JPanel {
                 public void actionPerformed(ActionEvent evt) {
                     if (evt.getSource().equals(matchButton)) {
                         ViewManagerState state = viewManagerModel.getState();
-                        if(!state.getCurrentView().equals(homeScreenViewModel.getViewName()) && state.hasProfile()){
+                        if(state.isLoggedIn() && !state.getCurrentView().equals(homeScreenViewModel.getViewName()) && state.hasProfile()){
                             state.setCurrentView(homeScreenViewModel.getViewName());
                             viewManagerModel.setState(state);
                             viewManagerModel.firePropertyChange();
@@ -99,7 +99,7 @@ public class TopMenuView extends JPanel {
                 public void actionPerformed(ActionEvent evt) {
                     if (evt.getSource().equals(logoutButton)) {
                         ViewManagerState state = viewManagerModel.getState();
-                        if(!state.getCurrentView().equals(signupViewModel.getViewName())){
+                        if(state.isLoggedIn() && !state.getCurrentView().equals(signupViewModel.getViewName())){
                             logoutController.execute();
 
                             state.setCurrentView(signupViewModel.getViewName());
