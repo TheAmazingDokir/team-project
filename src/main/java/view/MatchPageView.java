@@ -107,7 +107,19 @@ public class MatchPageView extends JPanel implements ActionListener, PropertyCha
         this.add(componentPanel);
         this.add(this.refreshButton);
 
+        refreshButton.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(refreshButton)) {
+                            final MatchPageState currentState = matchPageViewModel.getState();
 
+                            matchPageController.userIdtoUserMatchesProfiles(
+                                    currentState.getCurrentId()
+                            );
+                        }
+                    }
+                }
+        );
     }
 
     @Override
