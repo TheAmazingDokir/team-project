@@ -10,5 +10,7 @@ public class ChangeProfileOutputData {
         this.userID = userID;
     }
 
-    public Integer getUserID() {return userID;}
+    public Integer getUserID() {
+        return this.userID;
+    }
 }

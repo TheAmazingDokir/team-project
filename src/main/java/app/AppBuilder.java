@@ -111,7 +111,8 @@ public class AppBuilder {
     public AppBuilder addChangeProfileView() {
         changeProfileViewModel = new ChangeProfileViewModel();
 
-        final ChangeProfileOutputBoundary changeProfileOutputBoundary = new ChangeProfilePresenter(changeProfileViewModel, viewManagerModel);
+        final ChangeProfileOutputBoundary changeProfileOutputBoundary = new ChangeProfilePresenter(changeProfileViewModel,
+                viewManagerModel, homeScreenViewModel);
 
         changeProfileInteractor = new ChangeProfileInteractor(new MongoDBProfileDataAccessObject(), changeProfileOutputBoundary);
         changeProfileController = new ChangeProfileController(changeProfileInteractor, viewManagerModel);
