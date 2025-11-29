@@ -118,7 +118,7 @@ public class AppBuilder {
         final ChangeProfileOutputBoundary changeProfileOutputBoundary = new ChangeProfilePresenter(changeProfileViewModel,
                 viewManagerModel, homeScreenViewModel);
 
-        changeProfileInteractor = new ChangeProfileInteractor(profileDataAccessObject, changeProfileOutputBoundary, pineconeAccess);
+        changeProfileInteractor = new ChangeProfileInteractor(profileDataAccessObject, changeProfileOutputBoundary);
         changeProfileController = new ChangeProfileController(changeProfileInteractor, viewManagerModel);
         changeProfileView = new ChangeProfileView(changeProfileViewModel);
         changeProfileView.setChangeProfileController(changeProfileController);
@@ -137,7 +137,7 @@ public class AppBuilder {
         final UpdateMatchesInteractor updateMatchesInteractor = new UpdateMatchesInteractor();
 
         final HomeScreenController homeScreenController =
-                new HomeScreenController(approveRejectProfileInteractor, recommendProfileInteractor, updateMatchesInteractor);
+                new HomeScreenController(approveRejectProfileInteractor, recommendProfileInteractor);
         homeScreenView.setHomeScreenController(homeScreenController);
         cardPanel.add(homeScreenView, homeScreenView.getViewName());
         return this;
