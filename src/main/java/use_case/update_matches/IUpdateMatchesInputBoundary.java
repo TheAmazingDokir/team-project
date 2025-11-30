@@ -11,15 +11,15 @@ public interface IUpdateMatchesInputBoundary {
 
     /**
      * Creates a match between the 2 users if they have already approved each other
-     * @param user1Id the first user in the match
-     * @param user2Id the second user in the match
+     * @param
      */
-    void createMatch(int user1Id, int user2Id);
+    void createMatch(UpdateMatchesInputData updateMatchesInputData);
 
     /**
      * Finds all the people this user has approved, and returns their User Profile
-     * @param userId the user whose approved profiles are desired
-     * @return an ArrayList of the UserProfile objects of the users this user has approved
+     * @param
      */
-    ArrayList<UserProfile>  userIdtoUserMatchesProfiles(int userId);
+    void userIdtoUserMatchesProfiles(UpdateMatchesInputData updateMatchesInputData);
+
+    void getInfo(UpdateMatchesInputData updateMatchesInputData);
 }

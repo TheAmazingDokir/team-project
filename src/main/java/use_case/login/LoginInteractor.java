@@ -10,8 +10,9 @@ public class LoginInteractor implements LoginInputBoundary {
     private final LoginProfileDataAccessInterface profileDataAccessInterface;
     private final LoginOutputBoundary loginPresenter;
 
-    public LoginInteractor(LoginUserDataAccessInterface userDataAccessInterface, LoginProfileDataAccessInterface
-                                   profileDataAccessInterface, LoginOutputBoundary loginOutputBoundary) {
+    public LoginInteractor(LoginUserDataAccessInterface userDataAccessInterface,
+                           LoginProfileDataAccessInterface profileDataAccessInterface,
+                           LoginOutputBoundary loginOutputBoundary) {
         this.userDataAccessObject = userDataAccessInterface;
         this.profileDataAccessInterface = profileDataAccessInterface;
         this.loginPresenter = loginOutputBoundary;
@@ -26,7 +27,6 @@ public class LoginInteractor implements LoginInputBoundary {
         }
         else {
             int userId = userDataAccessObject.getUserIdByNameAndPassword(username, password);
-
             final LoginOutputData loginOutputData = new LoginOutputData(userId, username, profileDataAccessInterface.CheckProfileExists(userId));
             loginPresenter.prepareSuccessView(loginOutputData);
         }

@@ -54,8 +54,8 @@ public class MongoDBUserMatchesDataAccessObject {
     }
 
 
-    public void UploadUserMatchesData(UserMatches userMatches) {
-        Document userMatchesDocument = UserMatchestoDocument(userMatches);
+    public void uploadUserMatchesData(UserMatches userMatches) {
+        Document userMatchesDocument = userMatchestoDocument(userMatches);
 
         try {
             matchesCollection.insertOne(userMatchesDocument);
@@ -65,8 +65,8 @@ public class MongoDBUserMatchesDataAccessObject {
     }
 
 
-    public void ChangeUserMatchesData(UserMatches userMatches){
-        Document userMatchesDocument = UserMatchestoDocument(userMatches);
+    public void changeUserMatchesData(UserMatches userMatches){
+        Document userMatchesDocument = userMatchestoDocument(userMatches);
 
         try {
             UpdateResult result = matchesCollection.replaceOne
@@ -80,7 +80,7 @@ public class MongoDBUserMatchesDataAccessObject {
     }
 
 
-    public Document UserMatchestoDocument(UserMatches userMatches){
+    public Document userMatchestoDocument(UserMatches userMatches){
         Document userMatchesDocument = new Document()
                 .append("_id", userMatches.getUserId())
                 .append("matchIds", userMatches.getMatches())
@@ -91,7 +91,7 @@ public class MongoDBUserMatchesDataAccessObject {
     }
 
 
-    public boolean CheckUserMatchesExists(Integer userID) {
+    public boolean checkUserMatchesExists(Integer userID) {
         try {
             Document matchesDocument = matchesCollection
                     .find(Filters.eq("_id", userID))
@@ -102,7 +102,7 @@ public class MongoDBUserMatchesDataAccessObject {
         }
     }
 
-    public void DeleteUserMatches(UserMatches userMatches) {
+    public void deleteUserMatches(UserMatches userMatches) {
         try {
             DeleteResult result = matchesCollection.deleteOne(
                     Filters.eq("_id", userMatches.getUserId())
@@ -116,7 +116,7 @@ public class MongoDBUserMatchesDataAccessObject {
         }
     }
 
-    public UserMatches userIdtoUserMatches(Integer userId) {
+    public UserMatches getUserMatchesbyId(Integer userId) {
         try {
             Document userDocument = matchesCollection
                     .find(Filters.eq("_id", userId))
