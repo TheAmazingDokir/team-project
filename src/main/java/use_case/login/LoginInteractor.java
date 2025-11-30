@@ -7,11 +7,14 @@ import entity.User;
  */
 public class LoginInteractor implements LoginInputBoundary {
     private final LoginUserDataAccessInterface userDataAccessObject;
+    private final LoginProfileDataAccessInterface profileDataAccessInterface;
     private final LoginOutputBoundary loginPresenter;
 
     public LoginInteractor(LoginUserDataAccessInterface userDataAccessInterface,
+                           LoginProfileDataAccessInterface profileDataAccessInterface,
                            LoginOutputBoundary loginOutputBoundary) {
         this.userDataAccessObject = userDataAccessInterface;
+        this.profileDataAccessInterface = profileDataAccessInterface;
         this.loginPresenter = loginOutputBoundary;
     }
 
@@ -19,23 +22,13 @@ public class LoginInteractor implements LoginInputBoundary {
     public void execute(LoginInputData loginInputData) {
         final String username = loginInputData.getUsername();
         final String password = loginInputData.getPassword();
-        if (!userDataAccessObject.existsByName(username)) {
-            loginPresenter.prepareFailView(username + ": Account does not exist.");
+        if (!userDataAccessObject.existsByNameAndPassword(username, password)) {
+            loginPresenter.prepareFailView(username + ": Username and/or password are incorrect");
         }
         else {
-            final String pwd = userDataAccessObject.get(username).getPassword();
-            if (!password.equals(pwd)) {
-                loginPresenter.prepareFailView("Incorrect password for \"" + username + "\".");
-            }
-            else {
-
-                final User user = userDataAccessObject.get(loginInputData.getUsername());
-
-                userDataAccessObject.setCurrentUsername(username);
-
-                final LoginOutputData loginOutputData = new LoginOutputData(user.getName());
-                loginPresenter.prepareSuccessView(loginOutputData);
-            }
+            int userId = userDataAccessObject.getUserIdByNameAndPassword(username, password);
+            final LoginOutputData loginOutputData = new LoginOutputData(userId, username, profileDataAccessInterface.CheckProfileExists(userId));
+            loginPresenter.prepareSuccessView(loginOutputData);
         }
     }
 }

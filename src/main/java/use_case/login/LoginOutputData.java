@@ -19,14 +19,6 @@ public class LoginOutputData {
         return userId;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
     public String getUsername() {
         return username;
     }
