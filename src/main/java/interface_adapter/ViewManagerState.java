@@ -30,7 +30,7 @@ public class ViewManagerState {
         this.userId = userId;
     }
 
-    public boolean isHasProfile() {
+    public boolean hasProfile() {
         return hasProfile;
     }
 

@@ -41,6 +41,7 @@ import use_case.recommend_profile.RecommendProfileInteractor;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
+import use_case.update_matches.UpdateMatchesInteractor;
 import view.*;
 
 import javax.swing.*;
@@ -83,6 +84,9 @@ public class AppBuilder {
     private ChangeProfileView changeProfileView;
     private ChangeProfileController changeProfileController;
 
+    private TopMenuView  topMenuView;
+    private LogoutController logoutController;
+
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
     }
@@ -114,7 +118,7 @@ public class AppBuilder {
         final ChangeProfileOutputBoundary changeProfileOutputBoundary = new ChangeProfilePresenter(changeProfileViewModel,
                 viewManagerModel, homeScreenViewModel);
 
-        changeProfileInteractor = new ChangeProfileInteractor(new MongoDBProfileDataAccessObject(), changeProfileOutputBoundary);
+        changeProfileInteractor = new ChangeProfileInteractor(profileDataAccessObject, changeProfileOutputBoundary);
         changeProfileController = new ChangeProfileController(changeProfileInteractor, viewManagerModel);
         changeProfileView = new ChangeProfileView(changeProfileViewModel);
         changeProfileView.setChangeProfileController(changeProfileController);
@@ -130,6 +134,7 @@ public class AppBuilder {
         approveRejectProfileInteractor = new ApproveRejectProfileInteractor(profileMatchesDataAccessObject);
         recommendProfileInteractor = new RecommendProfileInteractor(profileDataAccessObject, pineconeAccess,
                 homeScreenPresenter, profileMatchesDataAccessObject);
+        final UpdateMatchesInteractor updateMatchesInteractor = new UpdateMatchesInteractor();
 
         final HomeScreenController homeScreenController =
                 new HomeScreenController(approveRejectProfileInteractor, recommendProfileInteractor);
@@ -183,8 +188,14 @@ public class AppBuilder {
         final LogoutInputBoundary logoutInteractor =
                 new LogoutInteractor(userDataAccessObject, logoutOutputBoundary);
 
-        final LogoutController logoutController = new LogoutController(logoutInteractor);
+        logoutController = new LogoutController(logoutInteractor);
         loggedInView.setLogoutController(logoutController);
+        return this;
+    }
+
+    public AppBuilder configureTopMenu(){
+        this.topMenuView = new TopMenuView(viewManagerModel, homeScreenViewModel, changeProfileViewModel,
+                signupViewModel, logoutController);
         return this;
     }
 
@@ -192,6 +203,7 @@ public class AppBuilder {
         final JFrame application = new JFrame("User Login Example");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+        application.add(topMenuView, BorderLayout.NORTH);
         application.add(cardPanel);
         ViewManagerState state  = viewManagerModel.getState();
         state.setCurrentView(signupView.getViewName());

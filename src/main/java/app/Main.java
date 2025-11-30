@@ -15,6 +15,7 @@ public class Main {
                 .addLoginUseCase()
                 .addChangePasswordUseCase()
                 .addLogoutUseCase()
+                .configureTopMenu()
                 .build();
 
         application.pack();
