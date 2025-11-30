@@ -35,9 +35,10 @@ public class MockHomePageLogic {
         ApproveRejectProfileInteractor approveRejectProfileInteractor = new ApproveRejectProfileInteractor(profileMatchesDataAccess);
         RecommendProfileInteractor recommendProfileInteractor = new RecommendProfileInteractor(userProfileDataAccess, pineconeAccess, homeScreenPresenter, profileMatchesDataAccess);
 
-        HomeScreenController homeScreenController = new HomeScreenController(approveRejectProfileInteractor, recommendProfileInteractor);
+//        HomeScreenController homeScreenController = new HomeScreenController(approveRejectProfileInteractor,
+//                recommendProfileInteractor);
 
-        homeScreenView.setHomeScreenController(homeScreenController);
+//        homeScreenView.setHomeScreenController(homeScreenController);
 
         final RecommendProfileInputData recomendatiomProfileInputData = new RecommendProfileInputData(12);
         recommendProfileInteractor.execute(recomendatiomProfileInputData);

@@ -19,11 +19,15 @@ public class UpdateMatchesInteractor implements IUpdateMatchesInputBoundary {
     public UpdateMatchesInteractor(UpdateMatchesOutputBoundary profilePresenter) {
         this.profilePresenter = profilePresenter;
     }
+
+    public UpdateMatchesInteractor() {
+        this.profilePresenter = null;
+    }
     /**
      * If both users have already approved each other, then add them to each others' matches attribute
      * @param inputData
      */
-    public void createMatch(UpdateMatchesInputData inputData) {
+    public void updateMatch(UpdateMatchesInputData inputData) {
         int user1Id = inputData.getUser1Id();
         int user2Id = inputData.getUser2Id();
         UserMatches user1Object = dao.getUserMatchesbyId(user1Id);
@@ -45,13 +49,13 @@ public class UpdateMatchesInteractor implements IUpdateMatchesInputBoundary {
         UserMatches userMatches = dao.getUserMatchesbyId(userId);
 
         // get the UserProfile objects of everyone this user has approved
-        ArrayList<UserProfile> approvedProfiles = new ArrayList<>();
+        ArrayList<UserProfile> matchedProfiles = new ArrayList<>();
 
-        for (int approvedId : userMatches.getApproved()) {
-            UserProfile approvedProfile = profileDao.getProfileById(approvedId);
-            approvedProfiles.add(approvedProfile);
+        for (int matchedId : userMatches.getMatches()) {
+            UserProfile matchedProfile = profileDao.getProfileById(matchedId);
+            matchedProfiles.add(matchedProfile);
         }
-        UpdateMatchesOutputData outputData = new UpdateMatchesOutputData(approvedProfiles);
+        UpdateMatchesOutputData outputData = new UpdateMatchesOutputData(matchedProfiles);
 
         profilePresenter.prepareSuccessView(outputData);
 

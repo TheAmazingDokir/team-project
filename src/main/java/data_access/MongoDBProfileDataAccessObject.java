@@ -21,12 +21,19 @@ import entity.JobSeekerProfile;
 import entity.UserProfile;
 import use_case.login.LoginProfileDataAccessInterface;
 import use_case.recommend_profile.RecommendProfileProfileDataAccessInterface;
+import use_case.signup.SignupProfileDataAccessInterface;
+
+import static com.mongodb.client.model.Projections.include;
+import static com.mongodb.client.model.Sorts.descending;
 
 
-public class MongoDBProfileDataAccessObject implements ChangeProfileDataAccessInterface, LoginProfileDataAccessInterface, RecommendProfileProfileDataAccessInterface {
+public class MongoDBProfileDataAccessObject implements ChangeProfileDataAccessInterface,
+        LoginProfileDataAccessInterface,
+        RecommendProfileProfileDataAccessInterface,
+        SignupProfileDataAccessInterface {
 
     private static final String CONNECTION_STRING =
-            "mongodb+srv://Eren:<db_password>@profiles.zbxygns.mongodb.net/?appName=profiles";
+            "mongodb+srv://TESTER:testpassword31@profiles.zbxygns.mongodb.net/?retryWrites=true&w=majority&appName=profiles";
     private static final String DB_NAME = "Main_Database";
     private static final String COLLECTION_NAME = "Profiles";
 
@@ -65,6 +72,20 @@ public class MongoDBProfileDataAccessObject implements ChangeProfileDataAccessIn
         }
 
         return DocumentToUserProfile(profileDocument);
+    }
+
+    @Override
+    public int getNextProfileId(){
+        Document lastProfileAdded = profilesCollection.find()
+                .projection(include("_id"))
+                .sort(descending("_id"))
+                .limit(1)
+                .first();
+
+        if (lastProfileAdded == null) {
+            return 0;
+        }
+        return lastProfileAdded.getInteger("_id") + 1;
     }
 
     @Override
