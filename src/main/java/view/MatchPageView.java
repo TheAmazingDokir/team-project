@@ -17,11 +17,6 @@ public class MatchPageView extends JPanel implements ActionListener, PropertyCha
     private final String viewName = "Match Page";
     private final MatchPageViewModel matchPageViewModel;
 
-    private final JButton homeButton;
-    private final JButton editButton;
-    private final JButton matchButton;
-    private final JButton logoutButton;
-
     private final JLabel nameLabel= new JLabel("Name:");
     private final JLabel userNameLabel;
     private final JLabel emailLabel= new JLabel("Email:");
@@ -32,6 +27,7 @@ public class MatchPageView extends JPanel implements ActionListener, PropertyCha
     private MatchPageController matchPageController = null;
 
     private final JScrollPane matchUserScrollPane = new JScrollPane();
+    private JPanel matchUserPanel = new JPanel();
 
     private final JTextArea resumeTextArea = new JTextArea(10, 20);
     private final JScrollPane resumeScrollPane = new JScrollPane(resumeTextArea);
@@ -42,18 +38,6 @@ public class MatchPageView extends JPanel implements ActionListener, PropertyCha
     public MatchPageView(MatchPageViewModel matchPageViewModel) {
         this.matchPageViewModel = matchPageViewModel;
         this.matchPageViewModel.addPropertyChangeListener(this);
-
-
-        final JPanel upperbuttonsPanel = new JPanel();
-        upperbuttonsPanel.setLayout(new BoxLayout(upperbuttonsPanel, BoxLayout.X_AXIS));
-        this.homeButton = new JButton("Home");
-        this.editButton = new JButton("Edit");
-        this.matchButton = new JButton("Match");
-        this.logoutButton = new JButton("Logout");
-        upperbuttonsPanel.add(homeButton);
-        upperbuttonsPanel.add(editButton);
-        upperbuttonsPanel.add(matchButton);
-        upperbuttonsPanel.add(logoutButton);
 
 
         final JPanel resumePanel = new JPanel();
@@ -77,6 +61,8 @@ public class MatchPageView extends JPanel implements ActionListener, PropertyCha
         this.resumeTextArea.setEditable(false);
         this.resumeTextArea.setLineWrap(true);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+        matchUserScrollPane.setViewportView(matchUserPanel);
 
         resumePanel.setLayout(new BoxLayout(resumePanel, BoxLayout.Y_AXIS));
         resumePanel.add(namePanel);
@@ -103,7 +89,6 @@ public class MatchPageView extends JPanel implements ActionListener, PropertyCha
         resumeTextArea.setWrapStyleWord(true);
 
 
-        this.add(upperbuttonsPanel);
         this.add(componentPanel);
         this.add(this.refreshButton);
 
@@ -134,26 +119,31 @@ public class MatchPageView extends JPanel implements ActionListener, PropertyCha
     }
 
     private void setFields(MatchPageState state) {
-        matchUserScrollPane.removeAll();
-        // to make the userProfile class public
+        matchUserPanel.removeAll();
+        matchUserPanel.setLayout(new BoxLayout(matchUserPanel, BoxLayout.Y_AXIS));
+
         for (int i = 0; i < state.getUserMatches().size(); i++) {
             JButton userButton = new JButton(state.getUserMatchesName().get(i));
-            userButton.addActionListener(
-                    new ActionListener(){
-                        public void actionPerformed(ActionEvent evt) {
-                            if (evt.getSource().equals(userButton)) {
-                                matchPageController.getInfo(userButton.getName());
-                            }
-                        }
-                    }
+
+            userButton.setFont(new Font("Arial", Font.BOLD, 16));
+            userButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
+            userButton.setPreferredSize(new Dimension(matchUserPanel.getWidth(), 50));
+
+            userButton.addActionListener(e ->
+                    matchPageController.getInfo(userButton.getText())   // better to use getText()
             );
-            matchUserScrollPane.add(userButton);
+            matchUserPanel.add(userButton);
         }
+
+        matchUserPanel.revalidate();
+        matchUserPanel.repaint();
+
         userNameLabel.setText(state.getName());
         userEmailLabel.setText(state.getEmail());
         userPhoneLabel.setText(state.getPhone());
         resumeTextArea.setText(state.getResume());
     }
+
 
 
 

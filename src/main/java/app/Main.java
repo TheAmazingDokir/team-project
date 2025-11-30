@@ -11,6 +11,7 @@ public class Main {
                 .addSignupView()
                 .addLoggedInView()
                 .addChangeProfileView()
+                .addMatchesPageUseCase()
                 .addSignupUseCase()
                 .addLoginUseCase()
                 .addChangePasswordUseCase()

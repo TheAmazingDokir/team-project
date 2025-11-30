@@ -8,6 +8,7 @@ import io.pinecone.clients.Pinecone;
 import io.pinecone.proto.DescribeIndexStatsResponse;
 import org.openapitools.db_data.client.model.Hit;
 import org.openapitools.db_data.client.model.SearchRecordsResponse;
+import use_case.change_profile_info.ChangeProfileRecommendationAccess;
 import use_case.recommend_profile.RecommendProfileRecommendationDataAccessInterface;
 
 import java.io.FileInputStream;
@@ -15,7 +16,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
-public class PineconeDataAccessObject implements RecommendProfileRecommendationDataAccessInterface {
+public class PineconeDataAccessObject implements RecommendProfileRecommendationDataAccessInterface,
+        ChangeProfileRecommendationAccess {
     private static final String NAMESPACE = "main";
     private final Index index;
 
@@ -35,7 +37,7 @@ public class PineconeDataAccessObject implements RecommendProfileRecommendationD
         return props.getProperty("pinecone.api.key");
     }
 
-    public void upsertProfiles(List<UserProfile> profiles) throws org.openapitools.db_data.client.ApiException {
+    public void upsertProfiles(List<UserProfile> profiles) {
         ArrayList<Map<String, String>> records = new ArrayList<>();
         for  (UserProfile profile : profiles) {
             HashMap<String, String> record = new HashMap<>();
@@ -53,7 +55,11 @@ public class PineconeDataAccessObject implements RecommendProfileRecommendationD
             records.add(record);
         }
 
-        index.upsertRecords(NAMESPACE, records);
+        try{
+            index.upsertRecords(NAMESPACE, records);
+        }catch(Exception e){
+            throw new RuntimeException(e);
+        }
     }
 
     public void deleteProfilesByIds( List<String> ids) throws org.openapitools.db_data.client.ApiException {

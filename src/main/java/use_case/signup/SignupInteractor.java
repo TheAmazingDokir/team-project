@@ -8,13 +8,16 @@ import entity.UserFactory;
  */
 public class SignupInteractor implements SignupInputBoundary {
     private final SignupUserDataAccessInterface userDataAccessObject;
+    private final SignupProfileDataAccessInterface profileDataAccessObject;
     private final SignupOutputBoundary userPresenter;
     private final UserFactory userFactory;
 
     public SignupInteractor(SignupUserDataAccessInterface signupDataAccessInterface,
+                            SignupProfileDataAccessInterface signupProfileDataAccessInterface,
                             SignupOutputBoundary signupOutputBoundary,
                             UserFactory userFactory) {
         this.userDataAccessObject = signupDataAccessInterface;
+        this.profileDataAccessObject = signupProfileDataAccessInterface;
         this.userPresenter = signupOutputBoundary;
         this.userFactory = userFactory;
     }
@@ -34,7 +37,10 @@ public class SignupInteractor implements SignupInputBoundary {
             userPresenter.prepareFailView("Passwords do not match");
         }
         else {
-            final int userId = userDataAccessObject.getNextUserId();
+            final int nextUserId = userDataAccessObject.getNextUserId();
+            final int nextProfileId = profileDataAccessObject.getNextProfileId();
+            // Take max of both to avoid overlaps
+            final int userId = Math.max(nextUserId, nextProfileId);
             final User user = userFactory.create(userId, signupInputData.getUsername(), signupInputData.getPassword());
             userDataAccessObject.save(user);
 

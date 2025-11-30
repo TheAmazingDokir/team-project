@@ -25,7 +25,7 @@ public class MongoDBUserDataAccessObject implements SignupUserDataAccessInterfac
                                                ChangePasswordUserDataAccessInterface,
                                                LogoutUserDataAccessInterface {
     private static final String CONNECTION_STRING =
-            "mongodb+srv://Eren:<db_password>@profiles.zbxygns.mongodb.net/?appName=profiles";
+            "mongodb+srv://TESTER:testpassword31@profiles.zbxygns.mongodb.net/?retryWrites=true&w=majority&appName=profiles";
     private static final String DB_NAME = "Main_Database";
     private static final String COLLECTION_NAME = "Users";
 

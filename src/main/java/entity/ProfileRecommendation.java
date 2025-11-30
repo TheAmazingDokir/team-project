@@ -16,4 +16,13 @@ public class ProfileRecommendation {
     public int getLastRecommendedProfileId(){
         return recommendedProfileIds.get(recommendedProfileIds.size()-1);
     }
+
+    public int getLastRecommendedProfileId(List<Integer> seenProfileIds){
+        for (int profileId : recommendedProfileIds){
+            if(!seenProfileIds.contains(profileId)){
+                return profileId;
+            }
+        }
+        return getLastRecommendedProfileId();
+    }
 }

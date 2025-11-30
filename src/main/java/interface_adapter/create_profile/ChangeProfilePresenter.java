@@ -20,13 +20,6 @@ public class ChangeProfilePresenter implements ChangeProfileOutputBoundary {
     public ChangeProfilePresenter(ChangeProfileViewModel changeProfileViewModel, ViewManagerModel viewManagerModel, HomeScreenViewModel homeScreenViewModel) {
         this.changeProfileViewModel = changeProfileViewModel;
         this.viewManagerModel = viewManagerModel;
-
-        if (this.viewManagerModel.getState().hasProfile()) {
-            System.out.println("PROFILE ALREADY EXISTS");
-        }
-        else {
-            System.out.println("PROFILE DOESN'T ALREADY EXISTS");
-        }
         this.homeScreenViewModel = homeScreenViewModel;
     }
 

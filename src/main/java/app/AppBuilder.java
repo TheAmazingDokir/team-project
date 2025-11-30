@@ -1,9 +1,6 @@
 package app;
 
-import data_access.MongoDBProfileDataAccessObject;
-import data_access.MongoDBUserDataAccessObject;
-import data_access.PineconeDataAccessObject;
-import data_access.ProfileMatchesDataAccessObject;
+import data_access.*;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.ViewManagerState;
@@ -21,6 +18,9 @@ import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.logout.LogoutPresenter;
+import interface_adapter.match_page.MatchPageController;
+import interface_adapter.match_page.MatchPagePresenter;
+import interface_adapter.match_page.MatchPageViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
@@ -60,7 +60,8 @@ public class AppBuilder {
     // DAO using a shared external database for users and profiles
     final MongoDBUserDataAccessObject userDataAccessObject = new MongoDBUserDataAccessObject(userFactory);
     final MongoDBProfileDataAccessObject profileDataAccessObject = new MongoDBProfileDataAccessObject();
-    final ProfileMatchesDataAccessObject profileMatchesDataAccessObject = new ProfileMatchesDataAccessObject();
+    final MongoDBUserMatchesDataAccessObject matchesDataAccessObject = new MongoDBUserMatchesDataAccessObject();
+    final ProfileMatchesDataAccessObject profileMatchesDataAccessObject = new ProfileMatchesDataAccessObject(matchesDataAccessObject);
 
     // DAO for service to obtain semantic recommendations
     PineconeDataAccessObject pineconeAccess = new PineconeDataAccessObject();
@@ -83,6 +84,10 @@ public class AppBuilder {
     private ChangeProfileViewModel changeProfileViewModel;
     private ChangeProfileView changeProfileView;
     private ChangeProfileController changeProfileController;
+
+    private MatchPageViewModel matchPageViewModel;
+    private MatchPageView matchPageView;
+    private MatchPageController matchPageController;
 
     private TopMenuView  topMenuView;
     private LogoutController logoutController;
@@ -118,7 +123,7 @@ public class AppBuilder {
         final ChangeProfileOutputBoundary changeProfileOutputBoundary = new ChangeProfilePresenter(changeProfileViewModel,
                 viewManagerModel, homeScreenViewModel);
 
-        changeProfileInteractor = new ChangeProfileInteractor(profileDataAccessObject, changeProfileOutputBoundary);
+        changeProfileInteractor = new ChangeProfileInteractor(profileDataAccessObject, pineconeAccess, changeProfileOutputBoundary);
         changeProfileController = new ChangeProfileController(changeProfileInteractor, viewManagerModel);
         changeProfileView = new ChangeProfileView(changeProfileViewModel);
         changeProfileView.setChangeProfileController(changeProfileController);
@@ -137,9 +142,23 @@ public class AppBuilder {
         final UpdateMatchesInteractor updateMatchesInteractor = new UpdateMatchesInteractor();
 
         final HomeScreenController homeScreenController =
-                new HomeScreenController(approveRejectProfileInteractor, recommendProfileInteractor);
+                new HomeScreenController(approveRejectProfileInteractor,
+                        recommendProfileInteractor,
+                        updateMatchesInteractor);
         homeScreenView.setHomeScreenController(homeScreenController);
         cardPanel.add(homeScreenView, homeScreenView.getViewName());
+        return this;
+    }
+
+    public AppBuilder addMatchesPageUseCase(){
+        matchPageViewModel = new MatchPageViewModel();
+        matchPageView = new MatchPageView(matchPageViewModel);
+        final MatchPagePresenter matchPagePresenter = new MatchPagePresenter(matchPageViewModel);
+        final UpdateMatchesInteractor updateMatchesInteractor = new UpdateMatchesInteractor(matchPagePresenter);
+
+        this.matchPageController = new MatchPageController(updateMatchesInteractor);
+        matchPageView.setMatchPageController(this.matchPageController);
+        cardPanel.add(matchPageView, matchPageView.getViewName());
         return this;
     }
 
@@ -147,7 +166,7 @@ public class AppBuilder {
         final SignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel,
                 signupViewModel, loginViewModel);
         final SignupInputBoundary userSignupInteractor = new SignupInteractor(
-                userDataAccessObject, signupOutputBoundary, userFactory);
+                userDataAccessObject, profileDataAccessObject, signupOutputBoundary, userFactory);
 
         SignupController controller = new SignupController(userSignupInteractor);
         signupView.setSignupController(controller);
@@ -195,7 +214,7 @@ public class AppBuilder {
 
     public AppBuilder configureTopMenu(){
         this.topMenuView = new TopMenuView(viewManagerModel, homeScreenViewModel, changeProfileViewModel,
-                signupViewModel, logoutController);
+                matchPageViewModel, signupViewModel, matchPageController, logoutController);
         return this;
     }
 

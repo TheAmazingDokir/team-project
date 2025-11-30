@@ -3,16 +3,22 @@ package use_case.change_profile_info;
 import entity.JobSeekerProfile;
 import entity.EmployerProfile;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * The Change Profile Interactor.
  */
 public class ChangeProfileInteractor implements ChangeProfileInputBoundary {
     private final ChangeProfileDataAccessInterface changeProfileDataAccessObject;
+    private final ChangeProfileRecommendationAccess changeProfileRecommendationAccess;
     private final ChangeProfileOutputBoundary changeProfileOutputBoundary;
 
     public ChangeProfileInteractor(ChangeProfileDataAccessInterface changeProfileDataAccessObject,
+                                   ChangeProfileRecommendationAccess changeProfileRecommendationAccess,
                                    ChangeProfileOutputBoundary changeProfileOutputBoundary){
         this.changeProfileDataAccessObject = changeProfileDataAccessObject;
+        this.changeProfileRecommendationAccess = changeProfileRecommendationAccess;
         this.changeProfileOutputBoundary = changeProfileOutputBoundary;
     }
 
@@ -35,6 +41,7 @@ public class ChangeProfileInteractor implements ChangeProfileInputBoundary {
                 alteredProfile.setResumeFull(profile);
 
                 changeProfileDataAccessObject.UploadProfileData(alteredProfile);
+                changeProfileRecommendationAccess.upsertProfiles(new ArrayList<>(Arrays.asList(alteredProfile)));
                 changeProfileOutputBoundary.prepareSuccessView(new ChangeProfileOutputData(profileID));
             }
             if (isEmployer){
@@ -44,6 +51,7 @@ public class ChangeProfileInteractor implements ChangeProfileInputBoundary {
                 alteredProfile.setCompanyName(companyName);
 
                 changeProfileDataAccessObject.UploadProfileData(alteredProfile);
+                changeProfileRecommendationAccess.upsertProfiles(new ArrayList<>(Arrays.asList(alteredProfile)));
                 changeProfileOutputBoundary.prepareSuccessView(new ChangeProfileOutputData(profileID));
             }
         }
@@ -54,6 +62,7 @@ public class ChangeProfileInteractor implements ChangeProfileInputBoundary {
                 alteredProfile.setResumeFull(profile);
 
                 changeProfileDataAccessObject.ChangeProfileData(alteredProfile);
+                changeProfileRecommendationAccess.upsertProfiles(new ArrayList<>(Arrays.asList(alteredProfile)));
                 changeProfileOutputBoundary.prepareSuccessView(new ChangeProfileOutputData(profileID));
             }
             if (isEmployer){
@@ -63,6 +72,7 @@ public class ChangeProfileInteractor implements ChangeProfileInputBoundary {
                 alteredProfile.setCompanyName(companyName);
 
                 changeProfileDataAccessObject.ChangeProfileData(alteredProfile);
+                changeProfileRecommendationAccess.upsertProfiles(new ArrayList<>(Arrays.asList(alteredProfile)));
                 changeProfileOutputBoundary.prepareSuccessView(new ChangeProfileOutputData(profileID));
             }
 
