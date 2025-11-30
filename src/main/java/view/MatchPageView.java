@@ -45,12 +45,15 @@ public class MatchPageView extends JPanel implements ActionListener, PropertyCha
         this.userNameLabel = new JLabel("");
         this.userEmailLabel = new JLabel("");
         this.userPhoneLabel = new JLabel("");
-        final JPanel namePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        final JPanel emailPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        final JPanel phonePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        final JPanel namePanel = new JPanel();
+        final JPanel emailPanel = new JPanel();
+        final JPanel phonePanel = new JPanel();
         namePanel.setLayout(new BoxLayout(namePanel, BoxLayout.X_AXIS));
         emailPanel.setLayout(new BoxLayout(emailPanel, BoxLayout.X_AXIS));
         phonePanel.setLayout(new BoxLayout(phonePanel, BoxLayout.X_AXIS));
+        namePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        emailPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        phonePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
         namePanel.add(nameLabel);
         namePanel.add(userNameLabel);
         emailPanel.add(emailLabel);
@@ -90,6 +93,7 @@ public class MatchPageView extends JPanel implements ActionListener, PropertyCha
 
 
         this.add(componentPanel);
+        refreshButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(this.refreshButton);
 
         refreshButton.addActionListener(
