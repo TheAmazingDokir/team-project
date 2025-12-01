@@ -19,7 +19,7 @@ public class ChangePasswordController {
      * @param username the user whose password to change
      */
     public void execute(String password, String username) {
-        final ChangePasswordInputData changePasswordInputData = new ChangePasswordInputData(username, password);
+        final ChangePasswordInputData changePasswordInputData = new ChangePasswordInputData(password, username);
 
         userChangePasswordUseCaseInteractor.execute(changePasswordInputData);
     }

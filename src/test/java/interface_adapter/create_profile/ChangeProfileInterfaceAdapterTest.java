@@ -139,17 +139,17 @@ public class ChangeProfileInterfaceAdapterTest {
         // --- 2. Setup ViewManagerModel ---
         ViewManagerModel viewManagerModel = new ViewManagerModel();
 
-        // 创建状态对象
-        // 注意：这里参数顺序必须和你的 ViewManagerState 构造函数一致
+        // Create state object
+        // Note: The parameter order must match your ViewManagerState constructor
         ViewManagerState vmState = new ViewManagerState(true, 99, true, "some view");
 
-        // 【关键修复】显式调用 setter 确保 ID 被设置进去
+        // [Critical Fix] Explicitly call setter to ensure ID is set correctly
         vmState.setUserId(99);
 
-        // 把状态塞给 ViewModel
+        // Set state to ViewModel
         viewManagerModel.setState(vmState);
 
-        // 调试打印：运行测试时看看控制台，确认这里打印的是不是 99
+        // Debug print: Check console during test execution to verify if 99 is printed
         System.out.println("Debug: UserID in ViewModel is " + viewManagerModel.getState().getUserId());
 
         ChangeProfileController controller = new ChangeProfileController(fakeInteractor, viewManagerModel);
@@ -177,7 +177,8 @@ public class ChangeProfileInterfaceAdapterTest {
         assertTrue(capturedData.getIsEmployer());
 
         // CRITICAL CHECK
-        // 如果这里还是红的，说明你的 ChangeProfileInputData 构造函数里可能忘了写 this.userId = userId;
+        // If this fails, check ChangeProfileInputData constructor to ensure 'this.profileID = profileID' is present.
+        // Also ensures the Controller correctly pulled the ID (99) from the ViewManagerModel.
         assertEquals(99, capturedData.getProfileID());
     }
 
