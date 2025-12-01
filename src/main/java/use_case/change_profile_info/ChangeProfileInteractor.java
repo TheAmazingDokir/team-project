@@ -34,13 +34,13 @@ public class ChangeProfileInteractor implements ChangeProfileInputBoundary {
         final String companyName = "Random Company";
 
 
-        if (!changeProfileDataAccessObject.CheckProfileExists(profileID)){
+        if (!changeProfileDataAccessObject.checkProfileExists(profileID)){
             if (!isEmployer){
                 JobSeekerProfile alteredProfile = new JobSeekerProfile(profileID,email,phoneNumber,profileUsername);
                 alteredProfile.setResumeSummary(summary);
                 alteredProfile.setResumeFull(profile);
 
-                changeProfileDataAccessObject.UploadProfileData(alteredProfile);
+                changeProfileDataAccessObject.uploadProfileData(alteredProfile);
                 changeProfileRecommendationAccess.upsertProfiles(new ArrayList<>(Arrays.asList(alteredProfile)));
                 changeProfileOutputBoundary.prepareSuccessView(new ChangeProfileOutputData(profileID));
             }
@@ -50,7 +50,7 @@ public class ChangeProfileInteractor implements ChangeProfileInputBoundary {
                 alteredProfile.setJobApplicationFull(profile);
                 alteredProfile.setCompanyName(companyName);
 
-                changeProfileDataAccessObject.UploadProfileData(alteredProfile);
+                changeProfileDataAccessObject.uploadProfileData(alteredProfile);
                 changeProfileRecommendationAccess.upsertProfiles(new ArrayList<>(Arrays.asList(alteredProfile)));
                 changeProfileOutputBoundary.prepareSuccessView(new ChangeProfileOutputData(profileID));
             }
@@ -61,7 +61,7 @@ public class ChangeProfileInteractor implements ChangeProfileInputBoundary {
                 alteredProfile.setResumeSummary(summary);
                 alteredProfile.setResumeFull(profile);
 
-                changeProfileDataAccessObject.ChangeProfileData(alteredProfile);
+                changeProfileDataAccessObject.changeProfileData(alteredProfile);
                 changeProfileRecommendationAccess.upsertProfiles(new ArrayList<>(Arrays.asList(alteredProfile)));
                 changeProfileOutputBoundary.prepareSuccessView(new ChangeProfileOutputData(profileID));
             }
@@ -71,7 +71,7 @@ public class ChangeProfileInteractor implements ChangeProfileInputBoundary {
                 alteredProfile.setJobApplicationFull(profile);
                 alteredProfile.setCompanyName(companyName);
 
-                changeProfileDataAccessObject.ChangeProfileData(alteredProfile);
+                changeProfileDataAccessObject.changeProfileData(alteredProfile);
                 changeProfileRecommendationAccess.upsertProfiles(new ArrayList<>(Arrays.asList(alteredProfile)));
                 changeProfileOutputBoundary.prepareSuccessView(new ChangeProfileOutputData(profileID));
             }

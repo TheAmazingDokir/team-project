@@ -71,7 +71,7 @@ public class MongoDBProfileDataAccessObject implements ChangeProfileDataAccessIn
             return null;
         }
 
-        return DocumentToUserProfile(profileDocument);
+        return documentToUserProfile(profileDocument);
     }
 
     @Override
@@ -89,8 +89,8 @@ public class MongoDBProfileDataAccessObject implements ChangeProfileDataAccessIn
     }
 
     @Override
-    public void UploadProfileData(UserProfile userProfile) {
-        Document profileDocument = UserProfiletoDocument(userProfile);
+    public void uploadProfileData(UserProfile userProfile) {
+        Document profileDocument = userProfiletoDocument(userProfile);
 
         try {
             profilesCollection.insertOne(profileDocument);
@@ -100,8 +100,8 @@ public class MongoDBProfileDataAccessObject implements ChangeProfileDataAccessIn
     }
 
     @Override
-    public void ChangeProfileData(UserProfile userProfile){
-        Document profileDocument = UserProfiletoDocument(userProfile);
+    public void changeProfileData(UserProfile userProfile){
+        Document profileDocument = userProfiletoDocument(userProfile);
 
         try {
             UpdateResult result = profilesCollection.replaceOne
@@ -114,7 +114,7 @@ public class MongoDBProfileDataAccessObject implements ChangeProfileDataAccessIn
         }
     }
 
-    public Document UserProfiletoDocument(UserProfile userProfile){
+    public Document userProfiletoDocument(UserProfile userProfile){
         Document profileDocument = new Document()
                 .append("_id", userProfile.getUserId())
                 .append("email", userProfile.getEmail())
@@ -136,7 +136,7 @@ public class MongoDBProfileDataAccessObject implements ChangeProfileDataAccessIn
         return profileDocument;
     }
 
-    public UserProfile DocumentToUserProfile(Document profileDocument){
+    public UserProfile documentToUserProfile(Document profileDocument){
         int userId = profileDocument.getInteger("_id");
         String email = profileDocument.getString("email");
         String phoneNumber = profileDocument.getString("phoneNumber");
@@ -168,7 +168,7 @@ public class MongoDBProfileDataAccessObject implements ChangeProfileDataAccessIn
     }
 
     @Override
-    public boolean CheckProfileExists(Integer userID) {
+    public boolean checkProfileExists(Integer userID) {
         try {
             Document profileDocument = profilesCollection
                     .find(Filters.eq("_id", userID))
@@ -179,7 +179,7 @@ public class MongoDBProfileDataAccessObject implements ChangeProfileDataAccessIn
         }
     }
 
-    public void DeleteProfile(UserProfile userProfile) {
+    public void deleteProfile(UserProfile userProfile) {
         try {
             DeleteResult result = profilesCollection.deleteOne(
                     Filters.eq("_id", userProfile.getUserId())
