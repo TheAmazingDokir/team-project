@@ -3,17 +3,24 @@ package interface_adapter.home_screen;
 
 import use_case.approve_reject_profile.ApproveRejectProfileInputBoundary;
 import use_case.approve_reject_profile.ApproveRejectProfileInputData;
+import use_case.recommend_profile.RecommendProfileInputBoundary;
 import use_case.recommend_profile.RecommendProfileInputData;
 import use_case.recommend_profile.RecommendProfileInteractor;
+import use_case.update_matches.IUpdateMatchesInputBoundary;
+import use_case.update_matches.UpdateMatchesInputData;
 
 public class HomeScreenController {
 
     private final ApproveRejectProfileInputBoundary approveRejectProfileUseCaseInteractor;
-    private final RecommendProfileInteractor recomendatiomProfileUseCaseInteractor;
+    private final RecommendProfileInputBoundary recommendationProfileUseCaseInteractor;
+    private final IUpdateMatchesInputBoundary  updateMatchesUseCaseInteractor;
 
-    public HomeScreenController(ApproveRejectProfileInputBoundary approveRejectProfileUseCaseInteractor, RecommendProfileInteractor recomendatiomProfileUseCaseInteractor) {
+    public HomeScreenController(ApproveRejectProfileInputBoundary approveRejectProfileUseCaseInteractor,
+                                RecommendProfileInteractor recommendationProfileUseCaseInteractor,
+                                IUpdateMatchesInputBoundary updateMatchesUseCaseInteractor) {
         this.approveRejectProfileUseCaseInteractor = approveRejectProfileUseCaseInteractor;
-        this.recomendatiomProfileUseCaseInteractor = recomendatiomProfileUseCaseInteractor;
+        this.recommendationProfileUseCaseInteractor = recommendationProfileUseCaseInteractor;
+        this.updateMatchesUseCaseInteractor = updateMatchesUseCaseInteractor;
     }
 
 
@@ -26,13 +33,13 @@ public class HomeScreenController {
     public void execute(Integer currentId, Integer otherId, boolean isApprove) {
         final ApproveRejectProfileInputData approveRejectProfileInputData =
                 new ApproveRejectProfileInputData(currentId, otherId, isApprove);
-
+        final UpdateMatchesInputData updateMatchesInputData = new UpdateMatchesInputData(currentId, otherId);
         final RecommendProfileInputData recommendationProfileInputData =
                 new RecommendProfileInputData(currentId);
 
         approveRejectProfileUseCaseInteractor.execute(approveRejectProfileInputData);
-
-        recomendatiomProfileUseCaseInteractor.execute(recommendationProfileInputData);
+        updateMatchesUseCaseInteractor.updateMatch(updateMatchesInputData);
+        recommendationProfileUseCaseInteractor.execute(recommendationProfileInputData);
 
     }
 
@@ -43,7 +50,7 @@ public class HomeScreenController {
     public void execute(Integer currentId) {
         final RecommendProfileInputData recommendationProfileInputData =
                 new RecommendProfileInputData(currentId);
-        recomendatiomProfileUseCaseInteractor.execute(recommendationProfileInputData);
+        recommendationProfileUseCaseInteractor.execute(recommendationProfileInputData);
     }
 }
 

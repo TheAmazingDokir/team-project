@@ -27,8 +27,7 @@ public class MatchPagePresenter implements UpdateMatchesOutputBoundary {
             names.add(users.get(i).getProfileUsername());
         }
         matchPageState.setUserMatchesName(names);
-        // matchPageState.setUserMatches(response.);
-        // matchPageState.setUserMatchesName(response.);
+        matchPageViewModel.setState(matchPageState);
         this.matchPageViewModel.firePropertyChange();
     }
 

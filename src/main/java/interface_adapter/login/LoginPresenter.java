@@ -41,6 +41,8 @@ public class LoginPresenter implements LoginOutputBoundary {
         state.setUserId(response.getUserId());
 
         if(response.hasProfile()){
+            state.setHasProfile(true);
+
             HomeScreenState homeScreenState = homeScreenViewModel.getState();
             homeScreenState.setCurrentId(response.getUserId());
             homeScreenViewModel.setState(homeScreenState);
@@ -48,6 +50,8 @@ public class LoginPresenter implements LoginOutputBoundary {
 
             state.setCurrentView(homeScreenViewModel.getViewName());
         }else{
+            state.setHasProfile(false);
+
             state.setCurrentView(changeProfileViewModel.getViewName());
         }
 
