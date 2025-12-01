@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * The Update Matches Interactor
  */
 public class UpdateMatchesInteractor implements IUpdateMatchesInputBoundary {
-    MongoDBUserMatchesDataAccessObject dao = new MongoDBUserMatchesDataAccessObject();
+    IUpdateMatchesDataAccess dao = new MongoDBUserMatchesDataAccessObject();
     MongoDBProfileDataAccessObject profileDao = new MongoDBProfileDataAccessObject();
     private final UpdateMatchesOutputBoundary profilePresenter;
 

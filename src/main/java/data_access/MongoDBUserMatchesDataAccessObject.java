@@ -15,13 +15,14 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.UpdateResult;
 import com.mongodb.client.result.DeleteResult;
 
-import entity.UserMatches;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import entity.UserMatches;
+import use_case.update_matches.IUpdateMatchesDataAccess;
 
-public class MongoDBUserMatchesDataAccessObject {
+
+public class MongoDBUserMatchesDataAccessObject implements IUpdateMatchesDataAccess {
 
     private static final String CONNECTION_STRING =
             "mongodb+srv://TESTER:testpassword31@profiles.zbxygns.mongodb.net/?retryWrites=true&w=majority&appName=profiles";
@@ -116,7 +117,7 @@ public class MongoDBUserMatchesDataAccessObject {
         }
     }
 
-    public UserMatches getUserMatchesbyId(Integer userId) {
+    public UserMatches getUserMatchesbyId(int userId) {
         try {
             Document userDocument = matchesCollection
                     .find(Filters.eq("_id", userId))
