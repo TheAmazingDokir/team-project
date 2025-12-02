@@ -17,11 +17,11 @@ public class MatchPageView extends JPanel implements ActionListener, PropertyCha
     private final String viewName = "Match Page";
     private final MatchPageViewModel matchPageViewModel;
 
-    private final JLabel nameLabel= new JLabel("Name:");
+    private final JLabel nameLabel= new JLabel("Name: ");
     private final JLabel userNameLabel;
-    private final JLabel emailLabel= new JLabel("Email:");
+    private final JLabel emailLabel= new JLabel("Email: ");
     private final JLabel userEmailLabel;
-    private final JLabel phoneLabel= new JLabel("Phone:");
+    private final JLabel phoneLabel= new JLabel("Phone: ");
     private final JLabel userPhoneLabel;
 
     private MatchPageController matchPageController = null;
