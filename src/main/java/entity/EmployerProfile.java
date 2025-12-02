@@ -14,11 +14,11 @@ public class EmployerProfile extends UserProfile {
     public String getCompanyName() {return this.companyName;}
 
     public String getSummaryProfileAsString(){
-        return jobApplicationFull;
+        return jobApplicationSummary;
     }
 
     public String getFullProfileAsString(){
-        return jobApplicationSummary;
+        return jobApplicationFull;
     }
 
     public void setJobApplicationSummary(String jobApplicationSummary) {
