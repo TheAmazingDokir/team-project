@@ -21,13 +21,22 @@ public class PineconeDataAccessObject implements RecommendProfileRecommendationD
     private static final String NAMESPACE = "main";
     private final Index index;
 
-    public PineconeDataAccessObject() {
+    private static PineconeDataAccessObject instance;
+
+    private PineconeDataAccessObject() {
         String apiKey = getApiKey();
         Pinecone pinecone = new Pinecone.Builder(apiKey).build();
         this.index = pinecone.getIndexConnection("hirematch");
     }
 
-    private String getApiKey(){
+    public static PineconeDataAccessObject getInstance(){
+        if (instance == null){
+            instance = new PineconeDataAccessObject();
+        }
+        return instance;
+    }
+
+    private static String getApiKey(){
         Properties props = new Properties();
         try (InputStream input = new FileInputStream("src/secrets/config.properties")) {
             props.load(input);

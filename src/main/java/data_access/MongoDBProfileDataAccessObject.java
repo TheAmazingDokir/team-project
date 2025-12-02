@@ -23,6 +23,11 @@ import use_case.login.LoginProfileDataAccessInterface;
 import use_case.recommend_profile.RecommendProfileProfileDataAccessInterface;
 import use_case.signup.SignupProfileDataAccessInterface;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 import static com.mongodb.client.model.Projections.include;
 import static com.mongodb.client.model.Sorts.descending;
 
@@ -32,8 +37,7 @@ public class MongoDBProfileDataAccessObject implements ChangeProfileDataAccessIn
         RecommendProfileProfileDataAccessInterface,
         SignupProfileDataAccessInterface {
 
-    private static final String CONNECTION_STRING =
-            "mongodb+srv://TESTER:testpassword31@profiles.zbxygns.mongodb.net/?retryWrites=true&w=majority&appName=profiles";
+    private static final String CONNECTION_STRING = getApiKey();
     private static final String DB_NAME = "Main_Database";
     private static final String COLLECTION_NAME = "Profiles";
 
@@ -41,7 +45,19 @@ public class MongoDBProfileDataAccessObject implements ChangeProfileDataAccessIn
     private final MongoDatabase mongoDatabase;
     private final MongoCollection<Document> profilesCollection;
 
-    public MongoDBProfileDataAccessObject() {
+    private static MongoDBProfileDataAccessObject instance;
+
+    private static String getApiKey(){
+        Properties props = new Properties();
+        try (InputStream input = new FileInputStream("src/secrets/config.properties")) {
+            props.load(input);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return props.getProperty("mongodb.api.key");
+    }
+
+    private MongoDBProfileDataAccessObject() {
         ServerApi serverApi = ServerApi.builder()
                 .version(ServerApiVersion.V1)
                 .build();
@@ -60,6 +76,13 @@ public class MongoDBProfileDataAccessObject implements ChangeProfileDataAccessIn
             } catch (MongoException e) {
                 throw new RuntimeException("Failed to ping MongoDB Servers", e);
         }
+    }
+
+    public static MongoDBProfileDataAccessObject getInstance(){
+        if (instance == null){
+            instance = new MongoDBProfileDataAccessObject();
+        }
+        return instance;
     }
 
     @Override

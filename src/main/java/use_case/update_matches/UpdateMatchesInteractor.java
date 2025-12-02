@@ -12,8 +12,8 @@ import java.util.ArrayList;
  * The Update Matches Interactor
  */
 public class UpdateMatchesInteractor implements IUpdateMatchesInputBoundary {
-    IUpdateMatchesDataAccess dao = new MongoDBUserMatchesDataAccessObject();
-    MongoDBProfileDataAccessObject profileDao = new MongoDBProfileDataAccessObject();
+    MongoDBUserMatchesDataAccessObject dao = MongoDBUserMatchesDataAccessObject.getInstance();
+    MongoDBProfileDataAccessObject profileDao = MongoDBProfileDataAccessObject.getInstance();
     private final UpdateMatchesOutputBoundary profilePresenter;
 
     public UpdateMatchesInteractor(UpdateMatchesOutputBoundary profilePresenter) {

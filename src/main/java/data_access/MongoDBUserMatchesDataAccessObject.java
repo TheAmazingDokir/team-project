@@ -15,17 +15,21 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.UpdateResult;
 import com.mongodb.client.result.DeleteResult;
 
+import entity.UserMatches;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
-import entity.UserMatches;
 import use_case.update_matches.IUpdateMatchesDataAccess;
 
 
 public class MongoDBUserMatchesDataAccessObject implements IUpdateMatchesDataAccess {
 
-    private static final String CONNECTION_STRING =
-            "mongodb+srv://TESTER:testpassword31@profiles.zbxygns.mongodb.net/?retryWrites=true&w=majority&appName=profiles";
+    private static final String CONNECTION_STRING = getApiKey();
     private static final String DB_NAME = "Main_Database";
     private static final String COLLECTION_NAME = "Matches";
 
@@ -33,7 +37,19 @@ public class MongoDBUserMatchesDataAccessObject implements IUpdateMatchesDataAcc
     private final MongoDatabase mongoDatabase;
     private final MongoCollection<Document> matchesCollection;
 
-    public MongoDBUserMatchesDataAccessObject() {
+    private static MongoDBUserMatchesDataAccessObject instance;
+
+    private static String getApiKey(){
+        Properties props = new Properties();
+        try (InputStream input = new FileInputStream("src/secrets/config.properties")) {
+            props.load(input);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return props.getProperty("mongodb.api.key");
+    }
+
+    private MongoDBUserMatchesDataAccessObject() {
         ServerApi serverApi = ServerApi.builder()
                 .version(ServerApiVersion.V1)
                 .build();
@@ -52,6 +68,13 @@ public class MongoDBUserMatchesDataAccessObject implements IUpdateMatchesDataAcc
         } catch (MongoException e) {
             throw new RuntimeException("Failed to ping MongoDB Servers", e);
         }
+    }
+
+    public static MongoDBUserMatchesDataAccessObject getInstance(){
+        if (instance == null){
+            instance = new MongoDBUserMatchesDataAccessObject();
+        }
+        return instance;
     }
 
 
