@@ -46,7 +46,6 @@ public class ProfileMatchesDataAccessObject implements ApproveRejectProfileMatch
         ArrayList<Integer> seenProfileIds = new ArrayList<>();
         seenProfileIds.addAll(getApprovedProfileIds(userId));
         seenProfileIds.addAll(getRejectedProfileIds(userId));
-        System.out.println("seenProfileIds: " + seenProfileIds);
         return seenProfileIds;
     }
 
