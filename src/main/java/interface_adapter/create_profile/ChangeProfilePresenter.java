@@ -32,6 +32,7 @@ public class ChangeProfilePresenter implements ChangeProfileOutputBoundary {
         ViewManagerState state = this.viewManagerModel.getState();
 
         state.setLoggedIn(true);
+        state.setHasProfile(true);
         state.setUserId(changeProfileOutputData.getUserID());
 
         HomeScreenState homeScreenState = homeScreenViewModel.getState();
