@@ -26,9 +26,15 @@ public class SignupPresenter implements SignupOutputBoundary {
 
     @Override
     public void prepareSuccessView(SignupOutputData response) {
+        final SignupState signupState = signupViewModel.getState();
+        signupState.setUsername("");
+        signupState.setPassword("");
+        signupState.setRepeatPassword("");
+        signupViewModel.setState(signupState);
         // On success, switch to the login view.
         final LoginState loginState = loginViewModel.getState();
         loginState.setUsername(response.getUsername());
+        loginState.setPassword("");
         loginViewModel.firePropertyChange();
 
         ViewManagerState state = viewManagerModel.getState();
