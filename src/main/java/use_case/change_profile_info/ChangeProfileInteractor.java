@@ -2,6 +2,7 @@ package use_case.change_profile_info;
 
 import entity.JobSeekerProfile;
 import entity.EmployerProfile;
+import entity.UserProfile;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,44 +36,30 @@ public class ChangeProfileInteractor implements ChangeProfileInputBoundary {
 
         final boolean profileExists = changeProfileDataAccessObject.CheckProfileExists(profileID);
 
-        if (!profileExists) {
-            if (!isEmployer) {
-                JobSeekerProfile alteredProfile = new JobSeekerProfile(profileID, email, phoneNumber, profileUsername);
-                alteredProfile.setResumeSummary(summary);
-                alteredProfile.setResumeFull(profile);
+        UserProfile alteredProfile;
+        if (!isEmployer) {
+            JobSeekerProfile p = new JobSeekerProfile(profileID, email, phoneNumber, profileUsername);
+            p.setResumeSummary(summary);
+            p.setResumeFull(profile);
+            alteredProfile = p;
+        } else {
+            EmployerProfile p = new EmployerProfile(profileID, email, phoneNumber, profileUsername);
+            p.setJobApplicationSummary(summary);
+            p.setJobApplicationFull(profile);
+            p.setCompanyName(companyName);
+            alteredProfile = p;
+        }
 
-                changeProfileDataAccessObject.UploadProfileData(alteredProfile);
-                changeProfileRecommendationAccess.upsertProfiles(new ArrayList<>(Arrays.asList(alteredProfile)));
-                changeProfileOutputBoundary.prepareSuccessView(new ChangeProfileOutputData(profileID));
-            } else { // employer
-                EmployerProfile alteredProfile = new EmployerProfile(profileID, email, phoneNumber, profileUsername);
-                alteredProfile.setJobApplicationSummary(summary);
-                alteredProfile.setJobApplicationFull(profile);
-                alteredProfile.setCompanyName(companyName);
-
-                changeProfileDataAccessObject.UploadProfileData(alteredProfile);
-                changeProfileRecommendationAccess.upsertProfiles(new ArrayList<>(Arrays.asList(alteredProfile)));
-                changeProfileOutputBoundary.prepareSuccessView(new ChangeProfileOutputData(profileID));
-            }
-        } else { // profileExists == true
-            if (!isEmployer) {
-                JobSeekerProfile alteredProfile = new JobSeekerProfile(profileID, email, phoneNumber, profileUsername);
-                alteredProfile.setResumeSummary(summary);
-                alteredProfile.setResumeFull(profile);
-
+        try {
+            if (profileExists) {
                 changeProfileDataAccessObject.ChangeProfileData(alteredProfile);
-                changeProfileRecommendationAccess.upsertProfiles(new ArrayList<>(Arrays.asList(alteredProfile)));
-                changeProfileOutputBoundary.prepareSuccessView(new ChangeProfileOutputData(profileID));
             } else {
-                EmployerProfile alteredProfile = new EmployerProfile(profileID, email, phoneNumber, profileUsername);
-                alteredProfile.setJobApplicationSummary(summary);
-                alteredProfile.setJobApplicationFull(profile);
-                alteredProfile.setCompanyName(companyName);
-
-                changeProfileDataAccessObject.ChangeProfileData(alteredProfile);
-                changeProfileRecommendationAccess.upsertProfiles(new ArrayList<>(Arrays.asList(alteredProfile)));
-                changeProfileOutputBoundary.prepareSuccessView(new ChangeProfileOutputData(profileID));
+                changeProfileDataAccessObject.UploadProfileData(alteredProfile);
             }
+            changeProfileRecommendationAccess.upsertProfiles(new ArrayList<>(Arrays.asList(alteredProfile)));
+            changeProfileOutputBoundary.prepareSuccessView(new ChangeProfileOutputData(profileID));
+        } catch (RuntimeException e) {
+            changeProfileOutputBoundary.prepareFailView("Unable to Update Profile");
         }
     }
 }
