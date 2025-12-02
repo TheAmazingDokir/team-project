@@ -214,4 +214,30 @@ class ChangeProfileInteractorTest {
         assertFalse(presenter.failCalled);
         assertEquals(profileId, presenter.successData.getUserID());
     }
+
+    @Test
+    void daoThrowsDuringChange_callsFailView() {
+        TestDataAccess dao = new TestDataAccess(true);
+        dao.throwOnWrite = true;
+
+        TestRecAccess rec = new TestRecAccess();
+        TestPresenter presenter = new TestPresenter();
+        ChangeProfileInteractor interactor = new ChangeProfileInteractor(dao, rec, presenter);
+
+        ChangeProfileInputData input = new ChangeProfileInputData(
+                "x@test.com",
+                "000-000",
+                "x",
+                "x",
+                false,
+                "user",
+                99
+        );
+
+        interactor.execute(input);
+
+        assertFalse(rec.upsertCalled);
+        assertTrue(presenter.failCalled);
+        assertEquals("Unable to Update Profile", presenter.failMessage);
+    }
 }
