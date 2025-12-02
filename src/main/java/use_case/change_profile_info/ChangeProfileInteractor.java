@@ -56,29 +56,28 @@ public class ChangeProfileInteractor implements ChangeProfileInputBoundary {
             }
         }
         else {
-            if (!isEmployer){
-                JobSeekerProfile alteredProfile = new JobSeekerProfile(profileID,email,phoneNumber,profileUsername);
-                alteredProfile.setResumeSummary(summary);
-                alteredProfile.setResumeFull(profile);
+            if (changeProfileDataAccessObject.CheckProfileExists(profileID)){
+                if (!isEmployer){
+                    JobSeekerProfile alteredProfile = new JobSeekerProfile(profileID,email,phoneNumber,profileUsername);
+                    alteredProfile.setResumeSummary(summary);
+                    alteredProfile.setResumeFull(profile);
 
-                changeProfileDataAccessObject.ChangeProfileData(alteredProfile);
-                changeProfileRecommendationAccess.upsertProfiles(new ArrayList<>(Arrays.asList(alteredProfile)));
-                changeProfileOutputBoundary.prepareSuccessView(new ChangeProfileOutputData(profileID));
-            }
-            if (isEmployer){
-                EmployerProfile alteredProfile = new EmployerProfile(profileID,email,phoneNumber,profileUsername);
-                alteredProfile.setJobApplicationSummary(summary);
-                alteredProfile.setJobApplicationFull(profile);
-                alteredProfile.setCompanyName(companyName);
+                    changeProfileDataAccessObject.ChangeProfileData(alteredProfile);
+                    changeProfileRecommendationAccess.upsertProfiles(new ArrayList<>(Arrays.asList(alteredProfile)));
+                    changeProfileOutputBoundary.prepareSuccessView(new ChangeProfileOutputData(profileID));
+                }
+                if (isEmployer){
+                    EmployerProfile alteredProfile = new EmployerProfile(profileID,email,phoneNumber,profileUsername);
+                    alteredProfile.setJobApplicationSummary(summary);
+                    alteredProfile.setJobApplicationFull(profile);
+                    alteredProfile.setCompanyName(companyName);
 
-                changeProfileDataAccessObject.ChangeProfileData(alteredProfile);
-                changeProfileRecommendationAccess.upsertProfiles(new ArrayList<>(Arrays.asList(alteredProfile)));
-                changeProfileOutputBoundary.prepareSuccessView(new ChangeProfileOutputData(profileID));
+                    changeProfileDataAccessObject.ChangeProfileData(alteredProfile);
+                    changeProfileRecommendationAccess.upsertProfiles(new ArrayList<>(Arrays.asList(alteredProfile)));
+                    changeProfileOutputBoundary.prepareSuccessView(new ChangeProfileOutputData(profileID));
+                }
             }
-
-            else{
-                changeProfileOutputBoundary.prepareFailView("Error: Database Update Unsuccessful");
-            }
+            else {changeProfileOutputBoundary.prepareFailView("Unable to Update Profile");}
         }
     }
 }
