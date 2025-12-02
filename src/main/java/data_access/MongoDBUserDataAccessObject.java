@@ -14,6 +14,11 @@ import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 import static com.mongodb.client.model.Projections.include;
 import static com.mongodb.client.model.Sorts.descending;
 
@@ -24,8 +29,7 @@ public class MongoDBUserDataAccessObject implements SignupUserDataAccessInterfac
                                                LoginUserDataAccessInterface,
                                                ChangePasswordUserDataAccessInterface,
                                                LogoutUserDataAccessInterface {
-    private static final String CONNECTION_STRING =
-            "mongodb+srv://TESTER:testpassword31@profiles.zbxygns.mongodb.net/?retryWrites=true&w=majority&appName=profiles";
+    private static final String CONNECTION_STRING = getApiKey();
     private static final String DB_NAME = "Main_Database";
     private static final String COLLECTION_NAME = "Users";
 
@@ -34,7 +38,19 @@ public class MongoDBUserDataAccessObject implements SignupUserDataAccessInterfac
     private final MongoCollection<Document> userCollection;
     private final UserFactory userFactory;
 
-    public MongoDBUserDataAccessObject(UserFactory userFactory) {
+    private static MongoDBUserDataAccessObject instance;
+
+    private static String getApiKey(){
+        Properties props = new Properties();
+        try (InputStream input = new FileInputStream("src/secrets/config.properties")) {
+            props.load(input);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return props.getProperty("mongodb.api.key");
+    }
+
+    private MongoDBUserDataAccessObject(UserFactory userFactory) {
         ServerApi serverApi = ServerApi.builder()
                 .version(ServerApiVersion.V1)
                 .build();
@@ -55,6 +71,13 @@ public class MongoDBUserDataAccessObject implements SignupUserDataAccessInterfac
         }
 
         this.userFactory = userFactory;
+    }
+
+    public static MongoDBUserDataAccessObject getInstance(UserFactory userFactory){
+        if (instance == null){
+            instance = new MongoDBUserDataAccessObject(userFactory);
+        }
+        return instance;
     }
 
     public User get(int userId) {

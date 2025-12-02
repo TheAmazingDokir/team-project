@@ -12,7 +12,7 @@ import javax.swing.*;
 
 public class MockMatchPageLogic {
     public static void main(String[] args) throws ApiException {
-        PineconeDataAccessObject pineconeAccess = new PineconeDataAccessObject();
+        PineconeDataAccessObject pineconeAccess = PineconeDataAccessObject.getInstance();
         UserProfileDataAccessMock userProfileDataAccess = new UserProfileDataAccessMock();
         ProfileMatchesDataAccessObject profileMatchesDataAccess = new ProfileMatchesDataAccessObject();
 

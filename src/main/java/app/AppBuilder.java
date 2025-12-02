@@ -58,13 +58,13 @@ public class AppBuilder {
     // of the classes from the data_access package
 
     // DAO using a shared external database for users and profiles
-    final MongoDBUserDataAccessObject userDataAccessObject = new MongoDBUserDataAccessObject(userFactory);
-    final MongoDBProfileDataAccessObject profileDataAccessObject = new MongoDBProfileDataAccessObject();
-    final MongoDBUserMatchesDataAccessObject matchesDataAccessObject = new MongoDBUserMatchesDataAccessObject();
+    final MongoDBUserDataAccessObject userDataAccessObject = MongoDBUserDataAccessObject.getInstance(userFactory);
+    final MongoDBProfileDataAccessObject profileDataAccessObject = MongoDBProfileDataAccessObject.getInstance();
+    final MongoDBUserMatchesDataAccessObject matchesDataAccessObject = MongoDBUserMatchesDataAccessObject.getInstance();
     final ProfileMatchesDataAccessObject profileMatchesDataAccessObject = new ProfileMatchesDataAccessObject(matchesDataAccessObject);
 
     // DAO for service to obtain semantic recommendations
-    PineconeDataAccessObject pineconeAccess = new PineconeDataAccessObject();
+    PineconeDataAccessObject pineconeAccess = PineconeDataAccessObject.getInstance();
 
     private SignupView signupView;
     private SignupViewModel signupViewModel;
@@ -219,7 +219,7 @@ public class AppBuilder {
     }
 
     public JFrame build() {
-        final JFrame application = new JFrame("User Login Example");
+        final JFrame application = new JFrame("Hirematch");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         application.add(topMenuView, BorderLayout.NORTH);
